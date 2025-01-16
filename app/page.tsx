@@ -1,7 +1,6 @@
 import React from "react";
-import Image from "next/image";
 
-export default function Home() {
+const Home = () => {
   return (
     <div>
       <header className="p-3 flex items-center bg-slate-600">
@@ -9,13 +8,23 @@ export default function Home() {
           <h1 className="text-3xl p-2 font-extrabold">PicUp Website</h1>
         </div>
 
-        <div className="text-xl space-x-10 p-2 ml-auto">
-          <span>Photos</span>
-          <span>New Ones</span>
-          <span>About</span>
-          <span>Saved</span>
+        <div className="text-xl space-x-10 p-3 ml-auto">
+          <a href="/headers/photos">
+            <a>Photos</a>
+          </a>
+          <a href="/headers/new-ones">
+            <a>New Ones</a>
+          </a>
+          <a href="/headers/about">
+            <a>About</a>
+          </a>
+          <a href="/headers/saved">
+            <a>Saved</a>
+          </a>
         </div>
       </header>
     </div>
   );
-}
+};
+
+export default Home;
