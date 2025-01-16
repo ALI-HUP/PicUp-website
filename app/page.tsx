@@ -10,16 +10,16 @@ const Home = () => {
 
         <div className="text-xl space-x-10 p-3 ml-auto">
           <a href="/headers/photos">
-            <a>Photos</a>
+            Photos
           </a>
           <a href="/headers/new-ones">
-            <a>New Ones</a>
+            New Ones
           </a>
           <a href="/headers/about">
-            <a>About</a>
+            About
           </a>
           <a href="/headers/saved">
-            <a>Saved</a>
+            Saved
           </a>
         </div>
       </header>
