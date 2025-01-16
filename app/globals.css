@@ -3,5 +3,30 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  background-image: url(../public/background/wp12974131-minimal-nature-4k-wallpapers.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  color: white;
+}
+
+.underline-animation {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-animation::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #fff;
+  transition: all 0.5s ease;
+  transform: translateX(-50%);
+}
+
+.underline-animation:hover::after {
+  width: 100%;
 }
