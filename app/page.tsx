@@ -16,10 +16,10 @@ const Home = () => {
         </div>
 
         <div className="text-xl space-x-10 p-3 ml-auto">
-          <a href="/headers/Your-photos" className="underline-animation hover:font-medium">Your Photos</a>
-          <a href="/headers/New-ones" className="underline-animation hover:font-medium">New Ones</a>
-          <a href="/headers/About" className="underline-animation hover:font-medium">About</a>
-          <a href="/headers/Saved" className="underline-animation hover:font-medium">Saved</a>
+          <a href="/headers/your-photos" className="underline-animation hover:font-medium">Your Photos</a>
+          <a href="/headers/new-ones" className="underline-animation hover:font-medium">New Ones</a>
+          <a href="/headers/about" className="underline-animation hover:font-medium">About</a>
+          <a href="/headers/saved" className="underline-animation hover:font-medium">Saved</a>
         </div>
       </header>
 
