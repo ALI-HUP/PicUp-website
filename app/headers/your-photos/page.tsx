@@ -28,24 +28,24 @@ const YourPhotos = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-white opacity-85 rounded-xl w-[55%] p-6">
+      <div className="bg-white opacity-90 rounded-xl w-[55%] p-6">
         <h2 className="text-center text-xl text-black font-extrabold m-5">
           Upload Your Photos
         </h2>
 
         <div className="flex flex-col gap-5 items-center">
-
-          <div className="flex justify-center items-center p-5">
+          <div className="flex justify-center items-center w-full gap-5">
+            {/* File input */}
             <input
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className=""
+              className="w-[50%] border p-3 pl-2 rounded-md"
               multiple
             />
           </div>
 
-          <div className="flex flex-wrap gap-4 justify-center items-center w-[45%]">
+          <div className="flex justify-center gap-5 w-full">
               {imagePreviews.map((preview, index) => (
                 <div key={index} className="w-20 h-20">
                   <img
@@ -58,7 +58,7 @@ const YourPhotos = () => {
             </div>
 
           <div className="flex justify-center mt-6">
-            <button className="bg-blue-600 text-white py-2 px-5 hover:bg-blue-700 rounded-xl border border-black duration-100">
+            <button className="bg-gray-200 text-black py-2 px-5 hover:bg-gray-300 rounded-xl border border-black">
               Upload
             </button>
           </div>
