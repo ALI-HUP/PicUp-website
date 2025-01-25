@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Upload from "@/public/svg/upload_7078851.png";
+import Uploadpic from "@/public/svg/upload_7078851.png";
 
-const YourPhotos = () => {
+const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ const YourPhotos = () => {
       <div className="bg-white bg-opacity-85 rounded-xl w-[50%] p-5">
         <div className="flex flex-col justify-center items-center">
           <h2 className="text-2xl text-black font-extrabold m-5">Upload Your Photos</h2>
-          <Image src={Upload} alt="Upload file" className="mb-5 w-14" />
+          <Image src={Uploadpic} alt="Upload file" className="mb-5 w-14" />
         </div>
 
         <form className="flex flex-col gap-5 items-center">
@@ -74,4 +74,4 @@ const YourPhotos = () => {
   );
 };
 
-export default YourPhotos;
+export default Upload;

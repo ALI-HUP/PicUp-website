@@ -9,8 +9,8 @@ const Header: React.FC = () => {
       </div>
 
       <div className="text-xl space-x-10 p-3 ml-auto">
-        <Link href="/headers/your-photos" className="underline-animation hover:font-medium">
-          Your Photos
+        <Link href="/headers/upload" className="underline-animation hover:font-medium">
+          Upload
         </Link>
         <Link href="/headers/new-ones" className="underline-animation hover:font-medium">
           New Ones
