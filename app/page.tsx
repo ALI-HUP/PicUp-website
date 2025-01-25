@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Header from '../components/Header';
 import Image from "next/image";
 import Pics1 from "@/public/pics/IMG_20220307_152910_643.jpg";
 import Pics2 from "@/public/pics/wp7864479.png";
@@ -49,18 +50,8 @@ const Home = () => {
 
   return (
     <div className="mb-40">
-      <header className="p-3 flex items-center bg-slate-600 mb-20 ">
-        <div>
-          <h1 className="text-3xl p-2 font-extrabold">PicUp Website</h1>
-        </div>
 
-        <div className="text-xl space-x-10 p-3 ml-auto">
-          <a href="/headers/your-photos" className="underline-animation hover:font-medium">Your Photos</a>
-          <a href="/headers/new-ones" className="underline-animation hover:font-medium">New Ones</a>
-          <a href="/headers/about" className="underline-animation hover:font-medium">About</a>
-          <a href="/headers/saved" className="underline-animation hover:font-medium">Saved</a>
-        </div>
-      </header>
+      <Header />
 
       <div className="flex justify-center items-start grid-cols-3 gap-8 max-w-[1400px] m-auto">
 
