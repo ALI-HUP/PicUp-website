@@ -12,8 +12,8 @@ const Header: React.FC = () => {
         <Link href="/headers/upload" className="underline-animation hover:font-medium">
           Upload
         </Link>
-        <Link href="/headers/new-ones" className="underline-animation hover:font-medium">
-          New Ones
+        <Link href="/headers/your-photos" className="underline-animation hover:font-medium">
+          Your photos
         </Link>
         <Link href="/headers/about" className="underline-animation hover:font-medium">
           About

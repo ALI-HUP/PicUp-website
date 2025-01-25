@@ -3,8 +3,8 @@ import React from "react";
 const NewOnes = () => {
   return (
     <div>
-      <h2>New Ones</h2>
-      <p>Here are the new ones...</p>
+      <h2>Your photos</h2>
+      <p>Here are Your photos...</p>
     </div>
   );
 };
