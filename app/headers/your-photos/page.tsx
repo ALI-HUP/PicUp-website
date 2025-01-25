@@ -30,24 +30,28 @@ const YourPhotos = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-white opacity-90 rounded-xl w-[55%] p-5">
+      <div className="bg-white bg-opacity-85 rounded-xl w-[50%] p-5">
         <div className="flex flex-col justify-center items-center">
-          <h2 className="text-xl text-black font-extrabold m-5">Upload Your Photos</h2>
+          <h2 className="text-2xl text-black font-extrabold m-5">Upload Your Photos</h2>
           <Image src={Upload} alt="Upload file" className="mb-5 w-14" />
         </div>
 
         <form className="flex flex-col gap-5 items-center">
           <div className="flex justify-center items-center w-full gap-5">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="w-[50%] border p-3 pl-2 rounded-md"
-              multiple
-            />
+
+            <label className="cursor-pointer bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700">
+              Choose files
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="hidden"
+                multiple
+              />
+            </label>
           </div>
 
-          <div className="flex justify-center gap-5 w-full">
+          <div className="flex justify-center gap-5 w-full mt-4">
             {imagePreviews.map((preview, index) => (
               <div key={index} className="w-20 h-20">
                 <img
