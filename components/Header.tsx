@@ -5,7 +5,9 @@ const Header: React.FC = () => {
   return (
     <header className="p-3 flex items-center bg-slate-600 mb-20">
       <div>
-        <h1 className="text-3xl p-2 font-extrabold">PicUp Website</h1>
+        <Link href="/" className="flex text-3xl p-2 font-extrabold">
+          <h1>PicUp Website</h1>
+        </Link>
       </div>
 
       <div className="text-xl space-x-10 p-3 ml-auto">
