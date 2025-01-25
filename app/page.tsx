@@ -11,34 +11,40 @@ import Share from "@/public/svg/share-svgrepo-com.png";
 import Sharefilled from "@/public/svg/share-filled-svgrepo-com.png";
 import Saved from "@/public/svg/saved-svgrepo-com.png";
 import Savedfilled from "@/public/svg/saved-filled-svgrepo-com.png";
+import { Snackbar, Alert } from "@mui/material";
 
 const Home = () => {
-  const [lovedImages, setLovedImages] = useState([false, false, false]);
-  const [sharedImages, setSharedImages] = useState([false, false, false]);
-  const [savedImages, setSavedImages] = useState([false, false, false]);
+  const [loveState, setLoveState] = useState([false, false, false]);
+  const [shareState, setShareState] = useState([false, false, false]);
+  const [savedState, setSavedState] = useState([false, false, false]);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
-  const handleLoveClick = (index: number) => {
-    setLovedImages((prevState) => {
-      const newLovedImages = [...prevState];
-      newLovedImages[index] = !newLovedImages[index];
-      return newLovedImages;
+  const handleShareClick = (index: number, link: string) => {
+    navigator.clipboard.writeText(link).then(() => {
+      const updatedShareState = [...shareState];
+      updatedShareState[index] = true;
+      setShareState(updatedShareState);
+
+      setOpenSnackbar(true);
     });
   };
 
-  const handleShareClick = (index: number) => {
-    setSharedImages((prevState) => {
-      const newSharedImages = [...prevState];
-      newSharedImages[index] = !newSharedImages[index];
-      return newSharedImages;
-    });
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
+
+    setShareState([false, false, false]);
   };
 
-  const handleSavedClick = (index: number) => {
-    setSavedImages((prevState) => {
-      const newSavedImages = [...prevState];
-      newSavedImages[index] = !newSavedImages[index];
-      return newSavedImages;
-    });
+  const toggleLove = (index: number) => {
+    const updatedLoveState = [...loveState];
+    updatedLoveState[index] = !updatedLoveState[index];
+    setLoveState(updatedLoveState);
+  };
+
+  const toggleSaved = (index: number) => {
+    const updatedSavedState = [...savedState];
+    updatedSavedState[index] = !updatedSavedState[index];
+    setSavedState(updatedSavedState);
   };
 
   return (
@@ -59,68 +65,29 @@ const Home = () => {
       <div className="flex justify-center items-start grid-cols-3 gap-8 max-w-[1400px] m-auto">
 
         <div className="bg-white p-2">
-            <Image
-              src={Pics1}
-              alt="car pic"
-            />
-            <div className="relative pt-2">
-              <div className="absolute right-1 bottom-1 flex gap-5">
-                <Image
-                  src={lovedImages[0] ? Lovefilled : Love}
-                  alt="love"
-                  className="w-7 h-7 hover:scale-110 transition-all duration-150"
-                  onClick={() => handleLoveClick(0)}
-                />
-                <Image
-                  src={sharedImages[0] ? Sharefilled : Share}
-                  alt="share"
-                  className="w-7 h-7 hover:scale-110 transition-all duration-150"
-                  onClick={() => handleShareClick(0)}
-                />
-                <Image
-                  src={savedImages[0] ? Savedfilled : Saved}
-                  alt="saved"
-                  className="w-[30px] h-[30px] hover:scale-110 transition-all duration-150"
-                  onClick={() => handleSavedClick(0)}
-                />
-              </div>
-
-              <div className="">
-                <button className="bg-blue-600 py-2 px-5 hover:bg-blue-700 duration-100">
-                  Download
-                </button>
-              </div>
-            </div>
-        </div>
-
-        <div className="bg-white p-2">
-          <Image
-              src={Pics2}
-              alt="car pic"
-            />
+          <Image src={Pics1} alt="car pic" />
           <div className="relative pt-2">
             <div className="absolute right-1 bottom-1 flex gap-5">
               <Image
-                src={lovedImages[1] ? Lovefilled : Love}
+                src={loveState[0] ? Lovefilled : Love}
                 alt="love"
                 className="w-7 h-7 hover:scale-110 transition-all duration-150"
-                onClick={() => handleLoveClick(1)}
+                onClick={() => toggleLove(0)}
               />
               <Image
-                src={sharedImages[1] ? Sharefilled : Share}
+                src={shareState[0] ? Sharefilled : Share}
                 alt="share"
                 className="w-7 h-7 hover:scale-110 transition-all duration-150"
-                onClick={() => handleShareClick(1)}
+                onClick={() => handleShareClick(0, "https://your-website-link.com/1")}
               />
               <Image
-                src={savedImages[1] ? Savedfilled : Saved}
+                src={savedState[0] ? Savedfilled : Saved}
                 alt="saved"
                 className="w-[30px] h-[30px] hover:scale-110 transition-all duration-150"
-                onClick={() => handleSavedClick(1)}
+                onClick={() => toggleSaved(0)}
               />
             </div>
-
-            <div className="">
+            <div>
               <button className="bg-blue-600 py-2 px-5 hover:bg-blue-700 duration-100">
                 Download
               </button>
@@ -129,41 +96,78 @@ const Home = () => {
         </div>
 
         <div className="bg-white p-2">
-          <Image
-              src={Pics3}
-              alt="car pic"
-            />
+          <Image src={Pics2} alt="car pic" />
           <div className="relative pt-2">
             <div className="absolute right-1 bottom-1 flex gap-5">
               <Image
-                src={lovedImages[2] ? Lovefilled : Love}
+                src={loveState[1] ? Lovefilled : Love}
                 alt="love"
                 className="w-7 h-7 hover:scale-110 transition-all duration-150"
-                onClick={() => handleLoveClick(2)}
+                onClick={() => toggleLove(1)}
               />
               <Image
-                src={sharedImages[2] ? Sharefilled : Share}
+                src={shareState[1] ? Sharefilled : Share}
                 alt="share"
                 className="w-7 h-7 hover:scale-110 transition-all duration-150"
-                onClick={() => handleShareClick(2)}
+                onClick={() => handleShareClick(1, "https://your-website-link.com/2")}
               />
               <Image
-                src={savedImages[2] ? Savedfilled : Saved}
+                src={savedState[1] ? Savedfilled : Saved}
                 alt="saved"
                 className="w-[30px] h-[30px] hover:scale-110 transition-all duration-150"
-                onClick={() => handleSavedClick(2)}
+                onClick={() => toggleSaved(1)}
               />
             </div>
-
-            <div className="">
+            <div>
               <button className="bg-blue-600 py-2 px-5 hover:bg-blue-700 duration-100">
                 Download
               </button>
             </div>
           </div>
         </div>
-        
+
+        <div className="bg-white p-2">
+          <Image src={Pics3} alt="car pic" />
+          <div className="relative pt-2">
+            <div className="absolute right-1 bottom-1 flex gap-5">
+              <Image
+                src={loveState[2] ? Lovefilled : Love}
+                alt="love"
+                className="w-7 h-7 hover:scale-110 transition-all duration-150"
+                onClick={() => toggleLove(2)}
+              />
+              <Image
+                src={shareState[2] ? Sharefilled : Share}
+                alt="share"
+                className="w-7 h-7 hover:scale-110 transition-all duration-150"
+                onClick={() => handleShareClick(2, "https://your-website-link.com/3")}
+              />
+              <Image
+                src={savedState[2] ? Savedfilled : Saved}
+                alt="saved"
+                className="w-[30px] h-[30px] hover:scale-110 transition-all duration-150"
+                onClick={() => toggleSaved(2)}
+              />
+            </div>
+            <div>
+              <button className="bg-blue-600 py-2 px-5 hover:bg-blue-700 duration-100">
+                Download
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={handleSnackbarClose} severity="success">
+          Link copied to clipboard!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
