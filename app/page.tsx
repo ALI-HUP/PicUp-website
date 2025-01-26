@@ -53,7 +53,7 @@ const Home = () => {
 
       <Header />
 
-      <div className="flex justify-center items-start grid-cols-3 gap-8 max-w-[1400px] m-auto">
+      <div className="flex justify-center items-start grid-cols-3 gap-8 max-w-[1400px] m-auto mt-10">
 
         <div className="bg-white p-2">
           <Image src={Pics1} alt="car pic" />

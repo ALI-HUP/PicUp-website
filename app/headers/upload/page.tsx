@@ -33,7 +33,7 @@ const Upload = () => {
     <div>
       <Header />
 
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-screen -mt-20">
         <div className="bg-white bg-opacity-85 rounded-xl w-[50%] p-5">
           <div className="flex flex-col justify-center items-center">
             <h2 className="text-2xl text-black font-extrabold m-5">Upload Your Photos</h2>
