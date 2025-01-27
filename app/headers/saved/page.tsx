@@ -8,7 +8,7 @@ const Saved = () => {
       <Header />
 
       <h2>Saved</h2>
-      <p>Here are your saved items...</p>
+      <p>In this page you can the the posts you saved</p>
     </div>
   );
 };
