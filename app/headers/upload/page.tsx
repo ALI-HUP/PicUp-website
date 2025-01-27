@@ -43,7 +43,7 @@ const Upload = () => {
           <form className="flex flex-col gap-5 items-center">
             <div className="flex justify-center items-center w-full gap-5">
 
-              <label className="cursor-pointer bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700">
+              <label className="cursor-pointer bg-gray-200 text-black border border-black py-3 px-8 rounded-xl hover:bg-gray-300">
                 Choose files
                 <input
                   type="file"
