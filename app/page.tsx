@@ -12,21 +12,42 @@ const Home = () => {
   return (
     <div className="mb-40">
       <Header />
-      <div className="flex justify-center items-start grid-cols-3 gap-8 max-w-[1400px] m-auto mt-10">
-        <div className="bg-white p-2">
-          <Image src={Pics1} alt="car pic" />
-          <IconsAndButton downloadLink="https://your-website-link.com/1" />
+      <div className="flex flex-wrap justify-center gap-5 mt-10">
+        <div className="sm:w-1/4">
+          <div className="bg-white">
+            <Image src={Pics1} alt="car pic" />
+            <IconsAndButton downloadLink="https://your-website-link.com/1" />
+          </div>
         </div>
 
-        <div className="bg-white p-2">
-          <Image src={Pics2} alt="car pic" />
-          <IconsAndButton downloadLink="https://your-website-link.com/2" />
+        <div className="sm:w-1/4">
+          <div className="bg-white">
+            <Image src={Pics2} alt="car pic" />
+            <IconsAndButton downloadLink="https://your-website-link.com/2" />
+          </div>
         </div>
 
-        <div className="bg-white p-2">
-          <Image src={Pics3} alt="car pic" />
-          <IconsAndButton downloadLink="https://your-website-link.com/3" />
+        <div className="sm:w-1/4">
+          <div className="bg-white">
+            <Image src={Pics3} alt="car pic" />
+            <IconsAndButton downloadLink="https://your-website-link.com/3" />
+          </div>
         </div>
+
+        <div className="sm:w-1/4">
+          <div className="bg-white">
+            <Image src={Pics2} alt="car pic" />
+            <IconsAndButton downloadLink="https://your-website-link.com/3" />
+          </div>
+        </div>
+
+        <div className="sm:w-1/4">
+          <div className="bg-white">
+            <Image src={Pics3} alt="car pic" />
+            <IconsAndButton downloadLink="https://your-website-link.com/3" />
+          </div>
+        </div>
+
       </div>
     </div>
   );

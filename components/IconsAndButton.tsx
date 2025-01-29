@@ -50,7 +50,7 @@ const IconsAndButton: React.FC<Props> = ({ downloadLink }) => {
   };
 
   return (
-    <div className="relative pt-2">
+    <div className="relative">
       <div className="absolute right-1 bottom-1 flex gap-5">
         <Image
           src={loveState ? Lovefilled : Love}
