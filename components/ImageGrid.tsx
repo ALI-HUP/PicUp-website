@@ -1,11 +1,11 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import IconsAndButton from "@/components/IconsAndButton"; // Import the IconsAndButton component
+import IconsAndButton from "@/components/IconsAndButton";
 
 interface ImageGridProps {
-  images: (string | StaticImageData)[]; // Accept both string URLs and StaticImageData
-  withIconsAndButtons?: boolean; // Optional prop to control whether icons and buttons are shown
-  downloadLinks: string[]; // Array of download links, one for each image
+  images: (string | StaticImageData)[];
+  withIconsAndButtons?: boolean;
+  downloadLinks: string[];
 }
 
 const ImageGrid: React.FC<ImageGridProps> = ({ images, withIconsAndButtons = true, downloadLinks }) => {
