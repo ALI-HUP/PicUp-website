@@ -15,35 +15,35 @@ const Home = () => {
       <div className="flex flex-wrap justify-center gap-5 mt-10">
         <div className="sm:w-1/4">
           <div>
-            <Image src={Pics1} alt="car pic" />
+            <Image src={Pics1} alt="square pic" />
             <IconsAndButton downloadLink="https://your-website-link.com/1" />
           </div>
         </div>
 
         <div className="sm:w-1/4">
           <div>
-            <Image src={Pics2} alt="car pic" />
+            <Image src={Pics2} alt="horizontal pic" />
             <IconsAndButton downloadLink="https://your-website-link.com/2" />
           </div>
         </div>
 
         <div className="sm:w-1/4">
           <div>
-            <Image src={Pics3} alt="car pic" />
+            <Image src={Pics3} alt="vertical pic" />
             <IconsAndButton downloadLink="https://your-website-link.com/3" />
           </div>
         </div>
 
         <div className="sm:w-1/4">
           <div>
-            <Image src={Pics2} alt="car pic" />
+            <Image src={Pics2} alt="horizontal pic" />
             <IconsAndButton downloadLink="https://your-website-link.com/3" />
           </div>
         </div>
 
         <div className="sm:w-1/4">
           <div>
-            <Image src={Pics1} alt="car pic" />
+            <Image src={Pics1} alt="square pic" />
             <IconsAndButton downloadLink="https://your-website-link.com/3" />
           </div>
         </div>
