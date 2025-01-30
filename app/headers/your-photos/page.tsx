@@ -20,7 +20,14 @@ const YourPhotos = () => {
   return (
     <div className="mb-40">
       <Header />
-      <h1>Your Photos</h1>
+
+      <div className="w-[70%] m-auto mt-10 rounded-full bg-slate-400">
+        <div className="flex justify-center items-center text-center p-3 text-2xl font-bold">
+          <h1 className="w-[50%]">Here are your photos</h1>
+          <h1 className="w-[50%]">Photos: {uploadedImages.length}</h1>
+        </div>
+      </div>
+
       <ImageGrid images={uploadedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />
     </div>
   );
