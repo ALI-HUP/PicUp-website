@@ -12,7 +12,7 @@ const Upload = () => {
     const files = Array.from(e.target.files || []);
     const validImages = files.filter((file) => (file as File).type.startsWith("image/"));
 
-    if (validImages.length + imagePreviews.length <= 4) {
+    if (validImages.length + imagePreviews.length <= 5) {
       const newPreviews: (string | ArrayBuffer | null)[] = [];
       validImages.forEach((file) => {
         const reader = new FileReader();
@@ -29,7 +29,7 @@ const Upload = () => {
         reader.readAsDataURL(file);
       });
     } else {
-      alert("You can only upload up to 4 images.");
+      alert("You can only upload up to 5 images at a time.");
     }
   };
 
@@ -46,7 +46,6 @@ const Upload = () => {
 
           <form className="flex flex-col gap-5 items-center">
             <div className="flex justify-center items-center w-full gap-5">
-
               <label className="cursor-pointer bg-gray-200 text-black border border-black py-3 px-8 rounded-xl hover:bg-gray-300">
                 Choose files
                 <input
