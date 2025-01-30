@@ -43,7 +43,7 @@ const Home = () => {
 
         <div className="sm:w-1/4">
           <div className="bg-white">
-            <Image src={Pics3} alt="car pic" />
+            <Image src={Pics1} alt="car pic" />
             <IconsAndButton downloadLink="https://your-website-link.com/3" />
           </div>
         </div>

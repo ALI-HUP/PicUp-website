@@ -19,7 +19,11 @@ const Upload = () => {
         reader.onloadend = () => {
           newPreviews.push(reader.result);
           if (newPreviews.length === validImages.length) {
-            setImagePreviews((prev) => [...prev, ...newPreviews]);
+            setImagePreviews((prev) => {
+              const updatedImages = [...prev, ...newPreviews];
+              localStorage.setItem("uploadedImages", JSON.stringify(updatedImages));
+              return updatedImages;
+            });
           }
         };
         reader.readAsDataURL(file);
