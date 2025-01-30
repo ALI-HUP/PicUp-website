@@ -34,10 +34,10 @@ const Upload = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
 
-      <div className="flex justify-center items-center min-h-screen -mt-20">
+      <div className="flex flex-grow justify-center items-center p-5">
         <div className="bg-white bg-opacity-85 rounded-xl w-[50%] p-5">
           <div className="flex flex-col justify-center items-center">
             <h2 className="text-2xl text-black font-extrabold m-5">Upload Your Photos</h2>
@@ -71,7 +71,7 @@ const Upload = () => {
             </div>
 
             <div className="flex justify-center mt-6">
-              <button className="bg-gray-200 text-black py-2 px-5 hover:bg-gray-300 rounded-xl border border-black">
+              <button className="bg-gray-200 text-black py-3 px-6 hover:bg-gray-300 rounded-xl border border-black">
                 Upload
               </button>
             </div>
