@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Header from '@/components/Header';
+import Header from "@/components/Header";
 import Uploadpic from "@/public/svg/upload_7078851.png";
 
 const Upload = () => {
@@ -12,7 +12,7 @@ const Upload = () => {
     const files = Array.from(e.target.files || []);
     const validImages = files.filter((file) => (file as File).type.startsWith("image/"));
 
-    if (validImages.length + imagePreviews.length <= 4) {
+    if (validImages.length + imagePreviews.length <= 5) {
       const newPreviews: (string | ArrayBuffer | null)[] = [];
       validImages.forEach((file) => {
         const reader = new FileReader();
@@ -20,29 +20,32 @@ const Upload = () => {
           newPreviews.push(reader.result);
           if (newPreviews.length === validImages.length) {
             setImagePreviews((prev) => [...prev, ...newPreviews]);
+
+            const storedImages = localStorage.getItem("uploadedImages");
+            const allImages = storedImages ? [...JSON.parse(storedImages), ...newPreviews] : newPreviews;
+            localStorage.setItem("uploadedImages", JSON.stringify(allImages));
           }
         };
         reader.readAsDataURL(file);
       });
     } else {
-      alert("You can only upload up to 4 images.");
+      alert("You can only upload up to 5 images at a time.");
     }
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
 
-      <div className="flex justify-center items-center min-h-screen -mt-20">
+      <div className="flex flex-grow justify-center items-center p-5">
         <div className="bg-white bg-opacity-85 rounded-xl w-[50%] p-5">
           <div className="flex flex-col justify-center items-center">
             <h2 className="text-2xl text-black font-extrabold m-5">Upload Your Photos</h2>
-            <Image src={Uploadpic} alt="Upload file" className="mb-5 w-14" />
+            <Image src={Uploadpic} alt="Upload pic" className="mb-5 w-14" />
           </div>
 
           <form className="flex flex-col gap-5 items-center">
             <div className="flex justify-center items-center w-full gap-5">
-
               <label className="cursor-pointer bg-gray-200 text-black border border-black py-3 px-8 rounded-xl hover:bg-gray-300">
                 Choose files
                 <input
@@ -68,7 +71,7 @@ const Upload = () => {
             </div>
 
             <div className="flex justify-center mt-6">
-              <button className="bg-gray-200 text-black py-2 px-5 hover:bg-gray-300 rounded-xl border border-black">
+              <button className="bg-gray-200 text-black py-3 px-6 hover:bg-gray-300 rounded-xl border border-black">
                 Upload
               </button>
             </div>
