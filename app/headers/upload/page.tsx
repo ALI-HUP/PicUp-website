@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Header from '@/components/Header';
+import Header from "@/components/Header";
 import Uploadpic from "@/public/svg/upload_7078851.png";
 
 const Upload = () => {
@@ -19,11 +19,11 @@ const Upload = () => {
         reader.onloadend = () => {
           newPreviews.push(reader.result);
           if (newPreviews.length === validImages.length) {
-            setImagePreviews((prev) => {
-              const updatedImages = [...prev, ...newPreviews];
-              localStorage.setItem("uploadedImages", JSON.stringify(updatedImages));
-              return updatedImages;
-            });
+            setImagePreviews((prev) => [...prev, ...newPreviews]);
+
+            const storedImages = localStorage.getItem("uploadedImages");
+            const allImages = storedImages ? [...JSON.parse(storedImages), ...newPreviews] : newPreviews;
+            localStorage.setItem("uploadedImages", JSON.stringify(allImages));
           }
         };
         reader.readAsDataURL(file);
