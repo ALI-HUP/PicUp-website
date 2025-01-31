@@ -14,7 +14,7 @@ interface Props {
   downloadLink: string;
 }
 
-const IconsAndButton: React.FC<Props> = ({ downloadLink }) => {
+const WhiteFrame: React.FC<Props> = ({ downloadLink }) => {
   const [loveState, setLoveState] = useState(false);
   const [shareState, setShareState] = useState(false);
   const [savedState, setSavedState] = useState(false);
@@ -95,4 +95,4 @@ const IconsAndButton: React.FC<Props> = ({ downloadLink }) => {
   );
 };
 
-export default IconsAndButton;
+export default WhiteFrame;

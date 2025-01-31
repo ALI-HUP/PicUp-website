@@ -1,6 +1,6 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import IconsAndButton from "@/components/IconsAndButton";
+import WhiteFrame from "@/components/WhiteFrame";
 
 interface ImageGridProps {
   images: (string | StaticImageData)[];
@@ -21,7 +21,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images, withIconsAndButtons = tru
             className="object-cover"
           />
           {withIconsAndButtons && (
-            <IconsAndButton downloadLink={downloadLinks[index]} />
+            <WhiteFrame downloadLink={downloadLinks[index]} />
           )}
         </div>
       ))}
