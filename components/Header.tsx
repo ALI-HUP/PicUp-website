@@ -17,8 +17,8 @@ const Header: React.FC = () => {
         <Link href="/headers/saved" className="underline-animation">
           Saved
         </Link>
-        <Link href="/headers/your-photos" className="underline-animation">
-          Your photos
+        <Link href="/headers/profile" className="underline-animation">
+          Profile
         </Link>
       </div>
     </header>

@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import ImageGrid from "@/components/ImageGrid";
 import { StaticImageData } from "next/image";
 
-const YourPhotos = () => {
+const Profile = () => {
   const [uploadedImages, setUploadedImages] = useState<(string | StaticImageData)[]>([]);
 
   useEffect(() => {
@@ -33,4 +33,4 @@ const YourPhotos = () => {
   );
 };
 
-export default YourPhotos;
+export default Profile;
