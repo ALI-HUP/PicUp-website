@@ -55,19 +55,19 @@ const WhiteFrame: React.FC<Props> = ({ downloadLink }) => {
         <Image
           src={loveState ? Lovefilled : Love}
           alt="love"
-          className="w-7 h-7 hover:scale-110 transition-all duration-150 cursor-pointer"
+          className="w-7 h-7 hover:scale-110 transition-all duration-150"
           onClick={handleLikeClick}
         />
         <Image
           src={shareState ? Sharefilled : Share}
           alt="share"
-          className="w-7 h-7 hover:scale-110 transition-all duration-150 cursor-pointer"
+          className="w-7 h-7 hover:scale-110 transition-all duration-150"
           onClick={handleShareClick}
         />
         <Image
           src={savedState ? Savedfilled : Saved}
           alt="saved"
-          className="w-[30px] h-[30px] hover:scale-110 transition-all duration-150 cursor-pointer"
+          className="w-[30px] h-[30px] hover:scale-110 transition-all duration-150"
           onClick={handleSaveClick}
         />
       </div>
