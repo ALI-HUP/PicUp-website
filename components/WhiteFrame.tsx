@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import Image from "next/image";
 import Love from "@/public/svg/heart-svgrepo-com.png";
@@ -9,6 +7,7 @@ import Sharefilled from "@/public/svg/share-filled-svgrepo-com.png";
 import Saved from "@/public/svg/saved-svgrepo-com.png";
 import Savedfilled from "@/public/svg/saved-filled-svgrepo-com.png";
 import { Snackbar, Alert } from "@mui/material";
+import Button from "@/components/Button";
 
 interface Props {
   downloadLink: string;
@@ -41,17 +40,13 @@ const WhiteFrame: React.FC<Props> = ({ downloadLink }) => {
     setSavedState(!savedState);
   };
 
-  const handleDownloadClick = () => {
-    console.log("Download clicked");
-  };
-
   const handleSnackbarClose = () => {
     setOpenSnackbar(false);
   };
 
   return (
     <div className="relative bg-white">
-      <div className="absolute right-1 bottom-1 flex gap-5">
+      <div className="absolute right-1 bottom-2 flex gap-5">
         <Image
           src={loveState ? Lovefilled : Love}
           alt="love"
@@ -72,14 +67,11 @@ const WhiteFrame: React.FC<Props> = ({ downloadLink }) => {
         />
       </div>
 
-      <div>
-        <button
-          className="bg-blue-600 py-2 px-5 hover:bg-blue-700 duration-100"
-          onClick={handleDownloadClick}
-        >
-          Download
-        </button>
-      </div>
+      <Button
+        label="Download"
+        onClick={() => console.log("Download clicked")}
+        styleType="download"
+      />
 
       <Snackbar
         open={openSnackbar}

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Uploadpic from "@/public/svg/upload_7078851.png";
+import Button from "@/components/Button";
 
 const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
@@ -20,7 +21,6 @@ const Upload = () => {
           newPreviews.push(reader.result);
           if (newPreviews.length === validImages.length) {
             setImagePreviews((prev) => [...prev, ...newPreviews]);
-
             const storedImages = localStorage.getItem("uploadedImages");
             const allImages = storedImages ? [...JSON.parse(storedImages), ...newPreviews] : newPreviews;
             localStorage.setItem("uploadedImages", JSON.stringify(allImages));
@@ -71,9 +71,7 @@ const Upload = () => {
             </div>
 
             <div className="flex justify-center mt-6">
-              <button className="bg-gray-200 text-black py-3 px-6 hover:bg-gray-300 rounded-xl border border-black">
-                Upload
-              </button>
+              <Button label="Upload" onClick={() => {}} styleType="upload" />
             </div>
           </form>
         </div>
