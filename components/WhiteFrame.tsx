@@ -70,7 +70,7 @@ const WhiteFrame: React.FC<Props> = ({ downloadLink }) => {
       <Button
         label="Download"
         onClick={() => console.log("Download clicked")}
-        styleType="download"
+        styleType="blue"
       />
 
       <Snackbar

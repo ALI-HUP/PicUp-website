@@ -52,7 +52,7 @@ const Upload = () => {
           <form className="flex flex-col gap-5 items-center">
             <div className="flex justify-center items-center w-full gap-5">
               <Button
-                styleType="upload"
+                styleType="white"
                 label="Choose files"
                 type="button"
                 onClick={handleButtonClick}
@@ -80,7 +80,7 @@ const Upload = () => {
             </div>
 
             <div className="flex justify-center mt-6">
-              <Button label="Upload" onClick={() => {}} type="submit" styleType="upload" />
+              <Button label="Upload" onClick={() => {}} type="submit" styleType="white" />
             </div>
           </form>
         </div>
