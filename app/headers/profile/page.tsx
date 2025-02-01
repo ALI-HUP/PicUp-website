@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { StaticImageData } from "next/image";
 import Header from "@/components/Header";
 import ImageGrid from "@/components/ImageGrid";
-import { StaticImageData } from "next/image";
 import Image from "next/image";
 import pic1 from "@/public/pics/IMG_20220307_152910_643.jpg";
 import Button from "@/components/Button";
@@ -36,7 +37,7 @@ const Profile = () => {
       <Header />
 
       <div className="m-auto bg-slate-900">
-        <div className="flex justify-center items-center py-20 space-x-20">
+        <div className="flex justify-center items-center py-10 space-x-20">
           <Image alt="profile pic" src={pic1} className="rounded-full w-44 h-44" />
 
           <div className="flex flex-col w-[550px]">
@@ -56,15 +57,30 @@ const Profile = () => {
               </>
             ) : (
               <>
-                <h1 className="p-2 text-3xl font-black mb-2" >{userName}</h1>
-                <span className="p-2 text-lg ">{userBio}</span>
+                <h1 className="p-2 text-3xl font-black mb-2">{userName}</h1>
+                <span className="p-2 text-lg">{userBio}</span>
               </>
             )}
           </div>
 
           <div className="flex flex-col space-y-5 mt-4 min-w-[150px]">
-            <Button label={isEditing ? "Save Profile" : "Edit Profile"} type="button" styleType="white" onClick={handleEditClick} />
-            <Button label={"upload"} type="button" styleType="white" onClick={handleEditClick} />
+            <Button 
+              label={isEditing ? "Save Profile" : "Edit Profile"} 
+              type="button" 
+              styleType="white" 
+              onClick={handleEditClick} 
+              className="w-full"
+            />
+            
+            <Link href="/headers/upload" passHref>
+              <Button 
+                label="Upload" 
+                type="button"
+                styleType="white" 
+                onClick={() => {}} 
+                className="w-full"
+              />
+            </Link>
           </div>
         </div>
 
