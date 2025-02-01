@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Uploadpic from "@/public/svg/upload_7078851.png";
+import Button from "@/components/Button";
 
 const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -20,7 +22,6 @@ const Upload = () => {
           newPreviews.push(reader.result);
           if (newPreviews.length === validImages.length) {
             setImagePreviews((prev) => [...prev, ...newPreviews]);
-
             const storedImages = localStorage.getItem("uploadedImages");
             const allImages = storedImages ? [...JSON.parse(storedImages), ...newPreviews] : newPreviews;
             localStorage.setItem("uploadedImages", JSON.stringify(allImages));
@@ -31,6 +32,10 @@ const Upload = () => {
     } else {
       alert("You can only upload up to 5 images at a time.");
     }
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -46,16 +51,20 @@ const Upload = () => {
 
           <form className="flex flex-col gap-5 items-center">
             <div className="flex justify-center items-center w-full gap-5">
-              <label className="cursor-pointer bg-gray-200 text-black border border-black py-3 px-8 rounded-xl hover:bg-gray-300">
-                Choose files
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="hidden"
-                  multiple
-                />
-              </label>
+              <Button
+                styleType="white"
+                label="Choose files"
+                type="button"
+                onClick={handleButtonClick}
+              />
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="hidden"
+                multiple
+              />
             </div>
 
             <div className="flex justify-center gap-5 w-full mt-4">
@@ -71,9 +80,7 @@ const Upload = () => {
             </div>
 
             <div className="flex justify-center mt-6">
-              <button className="bg-gray-200 text-black py-3 px-6 hover:bg-gray-300 rounded-xl border border-black">
-                Upload
-              </button>
+              <Button label="Upload" onClick={() => {}} type="submit" styleType="white" />
             </div>
           </form>
         </div>
