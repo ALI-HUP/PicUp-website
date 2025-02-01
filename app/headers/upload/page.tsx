@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 
 const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -33,6 +34,10 @@ const Upload = () => {
     }
   };
 
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -46,16 +51,20 @@ const Upload = () => {
 
           <form className="flex flex-col gap-5 items-center">
             <div className="flex justify-center items-center w-full gap-5">
-              <label className="cursor-pointer bg-gray-200 text-black border border-black py-3 px-8 rounded-xl hover:bg-gray-300">
-                Choose files
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="hidden"
-                  multiple
-                />
-              </label>
+              <Button
+                styleType="upload"
+                label="Choose files"
+                type="button"
+                onClick={handleButtonClick}
+              />
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="hidden"
+                multiple
+              />
             </div>
 
             <div className="flex justify-center gap-5 w-full mt-4">
@@ -71,7 +80,7 @@ const Upload = () => {
             </div>
 
             <div className="flex justify-center mt-6">
-              <Button label="Upload" onClick={() => {}} styleType="upload" />
+              <Button label="Upload" onClick={() => {}} type="submit" styleType="upload" />
             </div>
           </form>
         </div>
