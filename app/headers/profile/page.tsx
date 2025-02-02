@@ -54,7 +54,8 @@ const Profile = () => {
                   className="p-2 text-lg border-l-2 bg-slate-700"
                   value={userBio}
                   onChange={(e) => setUserBio(e.target.value)}
-                  placeholder="Write something about yourself"
+                  placeholder="Write something about yourself in 65 words"
+                  maxLength={65}
                 />
               </>
             ) : (
