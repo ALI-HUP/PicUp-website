@@ -42,15 +42,16 @@ const Upload = () => {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <div className="flex flex-grow justify-center items-center p-5">
-        <div className="bg-white bg-opacity-85 rounded-xl w-[50%] p-5">
+      <div className="flex flex-grow justify-center items-center gap-14 py-10">
+
+        <div className="bg-white w-full md:w-[50%] p-7 rounded-xl shadow-xl">
           <div className="flex flex-col justify-center items-center">
             <h2 className="text-2xl text-black font-extrabold m-5">Upload Your Photos</h2>
-            <Image src={Uploadpic} alt="Upload pic" className="mb-5 w-14" />
+            <Image src={Uploadpic} alt="Upload pic" className="mb-5 w-[50px]" />
           </div>
 
           <form className="flex flex-col gap-5 items-center">
-            <div className="flex justify-center items-center w-full gap-5">
+            <div className="flex justify-center items-center w-full">
               <Button
                 styleType="white"
                 label="Choose files"
@@ -67,9 +68,9 @@ const Upload = () => {
               />
             </div>
 
-            <div className="flex justify-center gap-5 w-full mt-4">
+            <div className="flex justify-center gap-7 w-full m-5">
               {imagePreviews.map((preview, index) => (
-                <div key={index} className="w-20 h-20">
+                <div key={index} className="w-24 h-24">
                   <img
                     src={preview as string}
                     alt={`Preview ${index}`}
@@ -79,10 +80,21 @@ const Upload = () => {
               ))}
             </div>
 
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center">
               <Button label="Upload" onClick={() => {}} type="submit" styleType="white" />
             </div>
           </form>
+        </div>
+
+        <div className="bg-white w-full md:w-[25%] p-6 rounded-xl shadow-xl">
+          <h3 className="text-2xl font-extrabold text-black mb-5">Upload Guidelines:</h3>
+          <ul className="space-y-4 text-base text-gray-800">
+            <li>• You can upload up to 5 images at a time.</li>
+            <li>• Ensure that the images are of good quality (minimum resolution of 1080p recommended).</li>
+            <li>• Only image files (JPEG, PNG, JPG) are supported.</li>
+            <li>• Each image will be displayed in your profile once uploaded.</li>
+            <li>• After uploading, you'll be able to view, download, and manage your photos.</li>
+          </ul>
         </div>
       </div>
     </div>

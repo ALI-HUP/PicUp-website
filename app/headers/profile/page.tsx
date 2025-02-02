@@ -48,11 +48,14 @@ const Profile = () => {
                   className="p-2 text-3xl border-l-2 font-black bg-slate-700 mb-2"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
+                  placeholder="Enter your User name"
                 />
                 <input
                   className="p-2 text-lg border-l-2 bg-slate-700"
                   value={userBio}
                   onChange={(e) => setUserBio(e.target.value)}
+                  placeholder="Write something about yourself in 65 words"
+                  maxLength={65}
                 />
               </>
             ) : (
