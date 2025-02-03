@@ -47,24 +47,30 @@ const WhiteFrame: React.FC<Props> = ({ downloadLink }) => {
   return (
     <div className="relative bg-white">
       <div className="absolute right-1 bottom-2 flex gap-5">
-        <Image
-          src={loveState ? Lovefilled : Love}
-          alt="love"
-          className="w-7 h-7 hover:scale-110 transition-all duration-150"
-          onClick={handleLikeClick}
-        />
-        <Image
-          src={shareState ? Sharefilled : Share}
-          alt="share"
-          className="w-7 h-7 hover:scale-110 transition-all duration-150"
-          onClick={handleShareClick}
-        />
-        <Image
-          src={savedState ? Savedfilled : Saved}
-          alt="saved"
-          className="w-[30px] h-[30px] hover:scale-110 transition-all duration-150"
-          onClick={handleSaveClick}
-        />
+        <button>
+          <Image
+            src={loveState ? Lovefilled : Love}
+            alt="love"
+            className="w-7 h-7 hover:scale-110 transition-all duration-150"
+            onClick={handleLikeClick}
+          />
+        </button>
+        <button>
+          <Image
+            src={shareState ? Sharefilled : Share}
+            alt="share"
+            className="w-7 h-7 hover:scale-110 transition-all duration-150"
+            onClick={handleShareClick}
+          />
+        </button>
+        <button onClick={() => {}} type="submit">
+          <Image
+            src={savedState ? Savedfilled : Saved}
+            alt="saved"
+            className="w-[30px] h-[30px] hover:scale-110 transition-all duration-150"
+            onClick={handleSaveClick}
+          />
+        </button>
       </div>
 
       <Button
