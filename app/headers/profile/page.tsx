@@ -11,14 +11,21 @@ import Button from "@/components/Button";
 
 const Profile = () => {
   const [uploadedImages, setUploadedImages] = useState<(string | StaticImageData)[]>([]);
+  const [likedImages, setLikedImages] = useState<(string | StaticImageData)[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [userName, setUserName] = useState("User - Name");
   const [userBio, setUserBio] = useState("Lorem ipsum, dolor sit amet consectetur adipisicing elit.");
+  const [activeTab, setActiveTab] = useState("photos");
 
   useEffect(() => {
     const storedImages = localStorage.getItem("uploadedImages");
     if (storedImages) {
       setUploadedImages(JSON.parse(storedImages));
+    }
+
+    const storedLikedImages = localStorage.getItem("likedImages");
+    if (storedLikedImages) {
+      setLikedImages(JSON.parse(storedLikedImages));
     }
   }, []);
 
@@ -30,6 +37,10 @@ const Profile = () => {
       localStorage.setItem("userBio", userBio);
     }
     setIsEditing(!isEditing);
+  };
+
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
   };
 
   return (
@@ -67,32 +78,39 @@ const Profile = () => {
           </div>
 
           <div className="flex flex-col space-y-5 mt-4 min-w-[150px]">
-            <Button 
-              label={isEditing ? "Save Profile" : "Edit Profile"} 
-              type="button" 
-              styleType="white" 
-              onClick={handleEditClick} 
+            <Button
+              label={isEditing ? "Save Profile" : "Edit Profile"}
+              type="button"
+              styleType="white"
+              onClick={handleEditClick}
               className="w-full"
             />
-            
             <Link href="/headers/upload" passHref>
-              <Button 
-                label="Upload" 
-                type="button"
-                styleType="white" 
-                onClick={() => {}} 
-                className="w-full"
-              />
+              <Button label="Upload" type="button" styleType="white" onClick={() => {}} className="w-full" />
             </Link>
           </div>
         </div>
 
-        <div className="text-center space-y-3 pb-5 text-2xl font-bold">
-          <p>Photos: {uploadedImages.length}</p>
+        <div className="flex justify-center space-x-40 text-2xl pb-5 font-bold">
+          <button
+            className={`p-2 ${activeTab === "photos" ? "font-bold text-white" : "text-gray-400"}`}
+            onClick={() => handleTabClick("photos")}
+          >
+            Photos: {uploadedImages.length}
+          </button>
+          <button
+            className={`p-2 ${activeTab === "liked" ? "font-bold text-white" : "text-gray-400"}`}
+            onClick={() => handleTabClick("liked")}
+          >
+            Liked
+          </button>
         </div>
       </div>
 
-      <ImageGrid images={uploadedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />
+      <div className="mt-5">
+        {activeTab === "photos" && <ImageGrid images={uploadedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />}
+        {activeTab === "liked" && <ImageGrid images={likedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />}
+      </div>
     </div>
   );
 };
