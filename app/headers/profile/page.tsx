@@ -102,7 +102,7 @@ const Profile = () => {
             className={`p-2 ${activeTab === "liked" ? "font-bold text-white" : "text-gray-400"}`}
             onClick={() => handleTabClick("liked")}
           >
-            Liked
+            Liked: {likedImages.length}
           </button>
         </div>
       </div>
