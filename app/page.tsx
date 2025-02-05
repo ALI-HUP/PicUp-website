@@ -9,16 +9,11 @@ import Pics3 from "@/public/pics/wp7937871.jpg";
 
 const Home = () => {
   const images = [Pics1, Pics2, Pics3, Pics1];
-  const downloadLinks = [
-    "https://your-website-link.com/1",
-    "https://your-website-link.com/2",
-    "https://your-website-link.com/3"
-  ];
 
   return (
     <div className="mb-40">
       <Header />
-      <ImageGrid images={images} downloadLinks={downloadLinks} />
+      <ImageGrid images={images} />
     </div>
   );
 };
