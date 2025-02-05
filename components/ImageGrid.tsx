@@ -5,10 +5,9 @@ import WhiteFrame from "@/components/WhiteFrame";
 interface ImageGridProps {
   images: (string | StaticImageData)[];
   withIconsAndButtons?: boolean;
-  downloadLinks: string[];
 }
 
-const ImageGrid: React.FC<ImageGridProps> = ({ images, withIconsAndButtons = true, downloadLinks }) => {
+const ImageGrid: React.FC<ImageGridProps> = ({ images, withIconsAndButtons = true }) => {
   return (
     <div className="flex flex-wrap justify-center gap-5 mt-10">
       {images.map((image, index) => (
@@ -21,7 +20,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images, withIconsAndButtons = tru
             className="object-cover"
           />
           {withIconsAndButtons && (
-            <WhiteFrame downloadLink={downloadLinks[index]} />
+            <WhiteFrame imageSrc={image} />
           )}
         </div>
       ))}
