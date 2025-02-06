@@ -5,9 +5,12 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Uploadpic from "@/public/svg/upload_7078851.png";
 import Button from "@/components/Button";
+import Deletepic from "@/public/svg/delete_2550254.png";
 
 const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
+  const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
+  const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,12 +41,34 @@ const Upload = () => {
     fileInputRef.current?.click();
   };
 
+  const handleRemoveImage = (index: number) => {
+    const updatedImages = imagePreviews.filter((_, i) => i !== index);
+    setImagePreviews(updatedImages);
+    localStorage.setItem("uploadedImages", JSON.stringify(updatedImages));
+  };
+
+  const handleDragStart = (index: number) => {
+    setDraggingIndex(index);
+    setIsDeleteEnabled(true);
+  };
+
+  const handleDragEnd = () => {
+    setDraggingIndex(null);
+    setIsDeleteEnabled(false);
+  };
+
+  const handleDrop = () => {
+    if (draggingIndex !== null) {
+      handleRemoveImage(draggingIndex);
+    }
+    setIsDeleteEnabled(false);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
 
       <div className="flex flex-grow justify-center items-center gap-14 py-10">
-
         <div className="bg-white w-full md:w-[50%] p-7 rounded-xl shadow-xl">
           <div className="flex flex-col justify-center items-center">
             <h2 className="text-2xl text-black font-extrabold m-5">Upload Your Photos</h2>
@@ -68,9 +93,15 @@ const Upload = () => {
               />
             </div>
 
-            <div className="flex justify-center gap-7 w-full m-5">
+            <div className="flex justify-center gap-7 w-full m-7">
               {imagePreviews.map((preview, index) => (
-                <div key={index} className="w-24 h-24">
+                <div
+                  key={index}
+                  className="relative w-24 h-24"
+                  draggable
+                  onDragStart={() => handleDragStart(index)}
+                  onDragEnd={handleDragEnd}
+                >
                   <img
                     src={preview as string}
                     alt={`Preview ${index}`}
@@ -79,9 +110,17 @@ const Upload = () => {
                 </div>
               ))}
             </div>
+            <div className="flex gap-5">
+              <div className={`flex justify-center items-center ${isDeleteEnabled ? "bg-red-500 cursor-pointer border-white" : "bg-slate-200 border border-black "} p-3 font-medium rounded-xl border`}
+                onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}
+              >
+                <Image src={Deletepic} alt="Delete" className="w-6 h-6" />
+                <span className="ml-2 text-black">{isDeleteEnabled ? "Drop to delete" : "Drag to delete"}</span>
+              </div>
 
-            <div className="flex justify-center">
-              <Button label="Upload" onClick={() => {}} type="submit" styleType="white" />
+              <div className="flex justify-center">
+                <Button label="Upload" onClick={() => {}} type="submit" styleType="white" />
+              </div>
             </div>
           </form>
         </div>
