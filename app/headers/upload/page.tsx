@@ -111,11 +111,11 @@ const Upload = () => {
               ))}
             </div>
             <div className="flex gap-5">
-              <div className={`flex justify-center items-center ${isDeleteEnabled ? "bg-red-500 cursor-pointer border-white" : "bg-slate-200 border border-black "} p-3 font-medium rounded-xl border`}
+              <div className={`flex justify-center items-center ${isDeleteEnabled ? "bg-red-500 cursor-pointer border-white" : "bg-slate-200 border-slate-400 text-slate-400"} p-3 font-medium rounded-xl border`}
                 onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}
               >
                 <Image src={Deletepic} alt="Delete" className="w-6 h-6" />
-                <span className="ml-2 text-black">{isDeleteEnabled ? "Drop to delete" : "Drag to delete"}</span>
+                <span className="ml-2">{isDeleteEnabled ? "Drop to delete" : "Drag to delete"} </span>
               </div>
 
               <div className="flex justify-center">
