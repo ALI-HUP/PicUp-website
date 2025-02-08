@@ -12,6 +12,7 @@ import Button from "@/components/Button";
 const Profile = () => {
   const [uploadedImages, setUploadedImages] = useState<(string | StaticImageData)[]>([]);
   const [likedImages, setLikedImages] = useState<(string | StaticImageData)[]>([]);
+  const [savedImages, setSavedImages] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [userName, setUserName] = useState("User - Name");
   const [userBio, setUserBio] = useState("Lorem ipsum, dolor sit amet consectetur adipisicing elit.");
@@ -27,6 +28,9 @@ const Profile = () => {
     if (storedLikedImages) {
       setLikedImages(JSON.parse(storedLikedImages));
     }
+
+    const storedSavedImages = JSON.parse(localStorage.getItem("savedImages") || "[]");
+    setSavedImages(storedSavedImages);
   }, []);
 
   const downloadLinks = uploadedImages.map((_, index) => `https://your-website-link.com/${index + 1}`);
@@ -91,7 +95,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="flex justify-center space-x-40 text-2xl pb-5 font-bold">
+        <div className="flex justify-center space-x-64 text-2xl pb-5 font-bold">
           <button
             className={`p-2 ${activeTab === "photos" ? "text-white" : "text-gray-400"}`}
             onClick={() => handleTabClick("photos")}
@@ -104,12 +108,19 @@ const Profile = () => {
           >
             Liked: {likedImages.length}
           </button>
+          <button
+            className={`p-2 ${activeTab === "saved" ? "text-white" : "text-gray-400"}`}
+            onClick={() => handleTabClick("saved")}
+          >
+            Saved: {savedImages.length}
+          </button>
         </div>
       </div>
 
       <div className="mt-5">
         {activeTab === "photos" && <ImageGrid images={uploadedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />}
         {activeTab === "liked" && <ImageGrid images={likedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />}
+        {activeTab === "saved" && <ImageGrid images={savedImages as string[]} downloadLinks={savedImages as string[]} />}
       </div>
     </div>
   );
