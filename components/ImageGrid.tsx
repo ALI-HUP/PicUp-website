@@ -4,6 +4,7 @@ import WhiteFrame from "@/components/WhiteFrame";
 
 interface ImageGridProps {
   images: (string | StaticImageData)[];
+  downloadLinks: string[];
   withIconsAndButtons?: boolean;
 }
 

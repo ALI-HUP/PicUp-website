@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div className="mb-40">
       <Header />
-      <ImageGrid images={images} />
+      <ImageGrid images={images} downloadLinks={[]} />
     </div>
   );
 };
