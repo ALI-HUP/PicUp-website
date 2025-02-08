@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import Love from "@/public/svg/heart-svgrepo-com.png";
 import Share from "@/public/svg/share-svgrepo-com.png";
@@ -14,6 +14,13 @@ const WhiteFrame: React.FC<Props> = ({ imageSrc }) => {
   const [loveState, setLoveState] = useState(false);
   const [shareState, setShareState] = useState(false);
   const [savedState, setSavedState] = useState(false);
+
+  useEffect(() => {
+    const savedImages = JSON.parse(localStorage.getItem("savedImages") || "[]");
+    const imageUrl = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
+
+    setSavedState(savedImages.includes(imageUrl));
+  }, [imageSrc]);
 
   const getDownloadableUrl = (src: string | StaticImageData): string => {
     if (typeof src === "string") {
@@ -45,17 +52,19 @@ const WhiteFrame: React.FC<Props> = ({ imageSrc }) => {
   };
 
   const handleSaveClick = () => {
-    setSavedState(!savedState);
-
     const savedImages = JSON.parse(localStorage.getItem("savedImages") || "[]");
     const imageUrl = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
 
-    if (!savedImages.includes(imageUrl)) {
+    if (savedState) {
+      const updatedSavedImages = savedImages.filter((url: string) => url !== imageUrl);
+      localStorage.setItem("savedImages", JSON.stringify(updatedSavedImages));
+      setSavedState(false);
+      console.log("Image removed from saved!");
+    } else {
       savedImages.push(imageUrl);
       localStorage.setItem("savedImages", JSON.stringify(savedImages));
+      setSavedState(true);
       console.log("Image saved!");
-    } else {
-      console.log("Image already saved!");
     }
   };
 
@@ -78,7 +87,7 @@ const WhiteFrame: React.FC<Props> = ({ imageSrc }) => {
         </button>
         <button onClick={handleSaveClick}>
           <Image
-            src={savedState ? Saved : Saved}
+            src={savedState ? Savedfilled : Saved}
             alt="saved"
             className="w-[30px] h-[30px] hover:scale-110 transition-all duration-150"
           />

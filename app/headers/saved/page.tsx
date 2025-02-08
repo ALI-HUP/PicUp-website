@@ -15,12 +15,15 @@ const Saved = () => {
   return (
     <div className="text-black">
       <Header />
-
-      <h2>Saved</h2>
+      <h2>Saved Images</h2>
       <br />
       <p>In this page you can see the posts you saved</p>
 
-      <ImageGrid images={savedImages} downloadLinks={savedImages} />
+      {savedImages.length === 0 ? (
+        <p>No saved images yet.</p>
+      ) : (
+        <ImageGrid images={savedImages} downloadLinks={savedImages} />
+      )}
     </div>
   );
 };
