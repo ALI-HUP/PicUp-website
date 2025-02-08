@@ -93,13 +93,13 @@ const Profile = () => {
 
         <div className="flex justify-center space-x-40 text-2xl pb-5 font-bold">
           <button
-            className={`p-2 ${activeTab === "photos" ? "font-bold text-white" : "text-gray-400"}`}
+            className={`p-2 ${activeTab === "photos" ? "text-white" : "text-gray-400"}`}
             onClick={() => handleTabClick("photos")}
           >
             Photos: {uploadedImages.length}
           </button>
           <button
-            className={`p-2 ${activeTab === "liked" ? "font-bold text-white" : "text-gray-400"}`}
+            className={`p-2 ${activeTab === "liked" ? "text-white" : "text-gray-400"}`}
             onClick={() => handleTabClick("liked")}
           >
             Liked: {likedImages.length}

@@ -13,17 +13,14 @@ const Saved = () => {
   }, []);
 
   return (
-    <div className="text-black">
+    <div className="mb-40">
       <Header />
-      <h2>Saved Images</h2>
-      <br />
-      <p>In this page you can see the posts you saved</p>
 
-      {savedImages.length === 0 ? (
-        <p>No saved images yet.</p>
-      ) : (
-        <ImageGrid images={savedImages} downloadLinks={savedImages} />
-      )}
+      <div className="bg-slate-900 flex justify-center items-center text-2xl font-bold p-14 pt-16">
+        <h1>Saved Photos: {savedImages.length}</h1>
+      </div>
+
+      <ImageGrid images={savedImages} downloadLinks={savedImages} />
     </div>
   );
 };
