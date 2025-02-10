@@ -8,7 +8,7 @@ import ImageGrid from "@/components/ImageGrid";
 import Image from "next/image";
 import profile from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQFQNHJlfQ2.jpg";
 import Button from "@/components/Button";
-import Camera from "@/public/svg/camera_2441817.png"
+import Camera from "@/public/svg/camera_2441817.png";
 
 const Profile = () => {
   const [uploadedImages, setUploadedImages] = useState<(string | StaticImageData)[]>([]);
@@ -35,6 +35,15 @@ const Profile = () => {
     const storedProfilePic = localStorage.getItem("profilePic");
     if (storedProfilePic) {
       setProfilePic(storedProfilePic);
+    }
+
+    const storedUserName = localStorage.getItem("userName");
+    const storedUserBio = localStorage.getItem("userBio");
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+    if (storedUserBio) {
+      setUserBio(storedUserBio);
     }
   }, []);
 
@@ -113,6 +122,7 @@ const Profile = () => {
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   placeholder="Enter your User name"
+                  maxLength={30}
                 />
                 <input
                   className="p-2 text-lg border-l-2 bg-slate-700"
