@@ -41,11 +41,20 @@ const Profile = () => {
   const downloadLinks = uploadedImages.map((_, index) => `https://your-website-link.com/${index + 1}`);
 
   const handleEditClick = () => {
-    if (isEditing) {
-      localStorage.setItem("userName", userName);
-      localStorage.setItem("userBio", userBio);
+    if (userName.length >= 3 && userBio.length >= 10) {
+      if (isEditing) {
+        localStorage.setItem("userName", userName);
+        localStorage.setItem("userBio", userBio);
+      }
+      setIsEditing(!isEditing);
+    } else {
+      if (userName.length < 3) {
+        alert("Username must be at least 3 characters long.");
+      }
+      if (userBio.length < 10) {
+        alert("Bio must be at least 10 characters long.");
+      }
     }
-    setIsEditing(!isEditing);
   };
 
   const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
