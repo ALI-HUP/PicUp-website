@@ -6,7 +6,7 @@ import { StaticImageData } from "next/image";
 import Header from "@/components/Header";
 import ImageGrid from "@/components/ImageGrid";
 import Image from "next/image";
-import pic1 from "@/public/pics/IMG_20220307_152910_643.jpg";
+import profile from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQFQNHJlfQ2.jpg";
 import Button from "@/components/Button";
 
 const Profile = () => {
@@ -51,7 +51,7 @@ const Profile = () => {
 
       <div className="m-auto bg-slate-900">
         <div className="flex justify-center items-center py-10 space-x-20">
-          <Image alt="profile pic" src={pic1} className="rounded-full w-44 h-44" />
+          <Image alt="profile pic" src={profile} className="rounded-full w-44 h-44" />
 
           <div className="flex flex-col w-[550px]">
             {isEditing ? (
