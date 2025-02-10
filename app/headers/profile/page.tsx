@@ -6,17 +6,19 @@ import { StaticImageData } from "next/image";
 import Header from "@/components/Header";
 import ImageGrid from "@/components/ImageGrid";
 import Image from "next/image";
-import pic1 from "@/public/pics/IMG_20220307_152910_643.jpg";
+import profile from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQFQNHJlfQ2.jpg";
 import Button from "@/components/Button";
+import Camera from "@/public/svg/camera_2441817.png";
 
 const Profile = () => {
   const [uploadedImages, setUploadedImages] = useState<(string | StaticImageData)[]>([]);
-  const [likedImages, setLikedImages] = useState<(string | StaticImageData)[]>([]);
+  const [likedImages, setLikedImages] = useState<string[]>([]);
   const [savedImages, setSavedImages] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [userName, setUserName] = useState("User - Name");
   const [userBio, setUserBio] = useState("Lorem ipsum, dolor sit amet consectetur adipisicing elit.");
   const [activeTab, setActiveTab] = useState("photos");
+  const [profilePic, setProfilePic] = useState<string | StaticImageData>(profile);
 
   useEffect(() => {
     const storedImages = localStorage.getItem("uploadedImages");
@@ -24,23 +26,57 @@ const Profile = () => {
       setUploadedImages(JSON.parse(storedImages));
     }
 
-    const storedLikedImages = localStorage.getItem("likedImages");
-    if (storedLikedImages) {
-      setLikedImages(JSON.parse(storedLikedImages));
-    }
+    const storedLikedImages = JSON.parse(localStorage.getItem("likedImages") || "[]");
+    setLikedImages(storedLikedImages);
 
     const storedSavedImages = JSON.parse(localStorage.getItem("savedImages") || "[]");
     setSavedImages(storedSavedImages);
+
+    const storedProfilePic = localStorage.getItem("profilePic");
+    if (storedProfilePic) {
+      setProfilePic(storedProfilePic);
+    }
+
+    const storedUserName = localStorage.getItem("userName");
+    const storedUserBio = localStorage.getItem("userBio");
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+    if (storedUserBio) {
+      setUserBio(storedUserBio);
+    }
   }, []);
 
   const downloadLinks = uploadedImages.map((_, index) => `https://your-website-link.com/${index + 1}`);
 
   const handleEditClick = () => {
-    if (isEditing) {
-      localStorage.setItem("userName", userName);
-      localStorage.setItem("userBio", userBio);
+    if (userName.length >= 3 && userBio.length >= 10) {
+      if (isEditing) {
+        localStorage.setItem("userName", userName);
+        localStorage.setItem("userBio", userBio);
+      }
+      setIsEditing(!isEditing);
+    } else {
+      if (userName.length < 3) {
+        alert("Username must be at least 3 characters long.");
+      }
+      if (userBio.length < 10) {
+        alert("Bio must be at least 10 characters long.");
+      }
     }
-    setIsEditing(!isEditing);
+  };
+
+  const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const newProfilePic = reader.result as string;
+        setProfilePic(newProfilePic);
+        localStorage.setItem("profilePic", newProfilePic);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleTabClick = (tab: string) => {
@@ -53,7 +89,29 @@ const Profile = () => {
 
       <div className="m-auto bg-slate-900">
         <div className="flex justify-center items-center py-10 space-x-20">
-          <Image alt="profile pic" src={pic1} className="rounded-full w-44 h-44" />
+          <div className="relative">
+            <Image
+              alt="profile pic"
+              src={profilePic}
+              className="rounded-full w-44 h-44 object-cover"
+              width={176}
+              height={176}
+            />
+            {isEditing && (
+              <div className="absolute bottom-0 right-0 bg-white p-1 rounded-full">
+                <label htmlFor="profile-pic-upload" className="cursor-pointer">
+                  <input
+                    id="profile-pic-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleProfilePicChange}
+                  />
+                  <Image alt="camera" src={Camera} className="w-9 h-9 p-1"/>
+                </label>
+              </div>
+            )}
+          </div>
 
           <div className="flex flex-col w-[550px]">
             {isEditing ? (
@@ -64,6 +122,7 @@ const Profile = () => {
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   placeholder="Enter your User name"
+                  maxLength={30}
                 />
                 <input
                   className="p-2 text-lg border-l-2 bg-slate-700"
@@ -119,7 +178,7 @@ const Profile = () => {
 
       <div className="mt-5">
         {activeTab === "photos" && <ImageGrid images={uploadedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />}
-        {activeTab === "liked" && <ImageGrid images={likedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />}
+        {activeTab === "liked" && <ImageGrid images={likedImages as string[]} downloadLinks={likedImages as string[]} />}
         {activeTab === "saved" && <ImageGrid images={savedImages as string[]} downloadLinks={savedImages as string[]} />}
       </div>
     </div>
