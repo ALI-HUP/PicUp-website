@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import Love from "@/public/svg/heart-svgrepo-com.png";
+import Lovefilled from "@/public/svg/heart-filled-svgrepo-com.png";
 import Share from "@/public/svg/share-svgrepo-com.png";
 import Saved from "@/public/svg/saved-svgrepo-com.png";
 import Savedfilled from "@/public/svg/saved-filled-svgrepo-com.png";
@@ -18,8 +19,10 @@ const WhiteFrame: React.FC<Props> = ({ imageSrc }) => {
   useEffect(() => {
     const savedImages = JSON.parse(localStorage.getItem("savedImages") || "[]");
     const imageUrl = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
-
     setSavedState(savedImages.includes(imageUrl));
+
+    const likedImages = JSON.parse(localStorage.getItem("likedImages") || "[]");
+    setLoveState(likedImages.includes(imageUrl));
   }, [imageSrc]);
 
   const getDownloadableUrl = (src: string | StaticImageData): string => {
@@ -41,7 +44,20 @@ const WhiteFrame: React.FC<Props> = ({ imageSrc }) => {
   };
 
   const handleLikeClick = () => {
-    setLoveState(!loveState);
+    const likedImages = JSON.parse(localStorage.getItem("likedImages") || "[]");
+    const imageUrl = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
+
+    if (loveState) {
+      const updatedLikedImages = likedImages.filter((url: string) => url !== imageUrl);
+      localStorage.setItem("likedImages", JSON.stringify(updatedLikedImages));
+      setLoveState(false);
+      console.log("Image removed from liked!");
+    } else {
+      likedImages.push(imageUrl);
+      localStorage.setItem("likedImages", JSON.stringify(likedImages));
+      setLoveState(true);
+      console.log("Image liked!");
+    }
   };
 
   const handleShareClick = () => {
@@ -73,7 +89,7 @@ const WhiteFrame: React.FC<Props> = ({ imageSrc }) => {
       <div className="absolute right-1 bottom-2 flex gap-5">
         <button onClick={handleLikeClick}>
           <Image
-            src={Love}
+            src={loveState ? Lovefilled : Love}
             alt="love"
             className="w-7 h-7 hover:scale-110 transition-all duration-150"
           />

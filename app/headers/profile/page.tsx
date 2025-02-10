@@ -11,7 +11,7 @@ import Button from "@/components/Button";
 
 const Profile = () => {
   const [uploadedImages, setUploadedImages] = useState<(string | StaticImageData)[]>([]);
-  const [likedImages, setLikedImages] = useState<(string | StaticImageData)[]>([]);
+  const [likedImages, setLikedImages] = useState<string[]>([]);
   const [savedImages, setSavedImages] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [userName, setUserName] = useState("User - Name");
@@ -24,10 +24,8 @@ const Profile = () => {
       setUploadedImages(JSON.parse(storedImages));
     }
 
-    const storedLikedImages = localStorage.getItem("likedImages");
-    if (storedLikedImages) {
-      setLikedImages(JSON.parse(storedLikedImages));
-    }
+    const storedLikedImages = JSON.parse(localStorage.getItem("likedImages") || "[]");
+    setLikedImages(storedLikedImages);
 
     const storedSavedImages = JSON.parse(localStorage.getItem("savedImages") || "[]");
     setSavedImages(storedSavedImages);
@@ -119,7 +117,7 @@ const Profile = () => {
 
       <div className="mt-5">
         {activeTab === "photos" && <ImageGrid images={uploadedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />}
-        {activeTab === "liked" && <ImageGrid images={likedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />}
+        {activeTab === "liked" && <ImageGrid images={likedImages as string[]} downloadLinks={likedImages as string[]} />}
         {activeTab === "saved" && <ImageGrid images={savedImages as string[]} downloadLinks={savedImages as string[]} />}
       </div>
     </div>
