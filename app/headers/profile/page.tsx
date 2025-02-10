@@ -8,6 +8,7 @@ import ImageGrid from "@/components/ImageGrid";
 import Image from "next/image";
 import profile from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQFQNHJlfQ2.jpg";
 import Button from "@/components/Button";
+import Camera from "@/public/svg/camera_2441817.png"
 
 const Profile = () => {
   const [uploadedImages, setUploadedImages] = useState<(string | StaticImageData)[]>([]);
@@ -17,6 +18,7 @@ const Profile = () => {
   const [userName, setUserName] = useState("User - Name");
   const [userBio, setUserBio] = useState("Lorem ipsum, dolor sit amet consectetur adipisicing elit.");
   const [activeTab, setActiveTab] = useState("photos");
+  const [profilePic, setProfilePic] = useState<string | StaticImageData>(profile);
 
   useEffect(() => {
     const storedImages = localStorage.getItem("uploadedImages");
@@ -29,6 +31,11 @@ const Profile = () => {
 
     const storedSavedImages = JSON.parse(localStorage.getItem("savedImages") || "[]");
     setSavedImages(storedSavedImages);
+
+    const storedProfilePic = localStorage.getItem("profilePic");
+    if (storedProfilePic) {
+      setProfilePic(storedProfilePic);
+    }
   }, []);
 
   const downloadLinks = uploadedImages.map((_, index) => `https://your-website-link.com/${index + 1}`);
@@ -41,6 +48,19 @@ const Profile = () => {
     setIsEditing(!isEditing);
   };
 
+  const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const newProfilePic = reader.result as string;
+        setProfilePic(newProfilePic);
+        localStorage.setItem("profilePic", newProfilePic);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
@@ -51,7 +71,29 @@ const Profile = () => {
 
       <div className="m-auto bg-slate-900">
         <div className="flex justify-center items-center py-10 space-x-20">
-          <Image alt="profile pic" src={profile} className="rounded-full w-44 h-44" />
+          <div className="relative">
+            <Image
+              alt="profile pic"
+              src={profilePic}
+              className="rounded-full w-44 h-44 object-cover"
+              width={176}
+              height={176}
+            />
+            {isEditing && (
+              <div className="absolute bottom-0 right-0 bg-white p-1 rounded-full">
+                <label htmlFor="profile-pic-upload" className="cursor-pointer">
+                  <input
+                    id="profile-pic-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleProfilePicChange}
+                  />
+                  <Image alt="camera" src={Camera} className="w-9 h-9 p-1"/>
+                </label>
+              </div>
+            )}
+          </div>
 
           <div className="flex flex-col w-[550px]">
             {isEditing ? (
