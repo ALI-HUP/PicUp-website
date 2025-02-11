@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Header: React.FC = () => {
   return (
-    <header className="flex text-xl items-center justify-between p-5 bg-slate-900 text-white">
+    <header className="flex text-xl items-center justify-between p-4 bg-slate-900 text-white">
       <div className="flex text-3xl font-extrabold hover:scale-105 transition-all duration-300">
         <Link href="/">
           <h1>PicUp Website</h1>
