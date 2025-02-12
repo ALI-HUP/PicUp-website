@@ -94,6 +94,13 @@ const Upload = () => {
   };
 
   const handleUploadComplete = () => {
+    if (imagePreviews.length === 0) {
+      setModalMessage("Please select images to upload.");
+      setModalButtonText("Choose Files");
+      setShowModal(true);
+      return;
+    }
+
     setIsUploading(true);
     setTimeout(() => {
       setModalMessage("Your photos have been successfully uploaded.");
