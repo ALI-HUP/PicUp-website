@@ -14,6 +14,7 @@ const Upload = () => {
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [canUpload, setCanUpload] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
@@ -71,11 +72,17 @@ const Upload = () => {
   };
 
   const handleUploadComplete = () => {
-    setShowModal(true);
+    setIsUploading(true);
+    setTimeout(() => {
+      setShowModal(true);
+      setIsUploading(false);
+    }, 1000);
   };
 
   const handleGoToProfile = () => {
-    router.push("/headers/profile");
+    setTimeout(() => {
+      router.push("/headers/profile");
+    }, 500);
   };
 
   return (
@@ -133,13 +140,7 @@ const Upload = () => {
               </div>
 
               <div className="flex justify-center">
-                <Button 
-                  label="Upload" 
-                  onClick={handleUploadComplete} 
-                  type="button" 
-                  styleType="white" 
-                  disabled={!canUpload}
-                />
+                <Button label="Upload" onClick={handleUploadComplete} type="button" styleType="white" disabled={!canUpload || isUploading} />
               </div>
             </div>
           </form>
