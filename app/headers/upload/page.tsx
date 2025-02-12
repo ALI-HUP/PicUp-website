@@ -6,12 +6,16 @@ import Header from "@/components/Header";
 import Uploadpic from "@/public/svg/upload_7078851.png";
 import Button from "@/components/Button";
 import Deletepic from "@/public/svg/delete_2550254.png";
+import { useRouter } from "next/navigation";
 
 const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [canUpload, setCanUpload] = useState(false);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const router = useRouter();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -25,6 +29,7 @@ const Upload = () => {
           newPreviews.push(reader.result);
           if (newPreviews.length === validImages.length) {
             setImagePreviews((prev) => [...prev, ...newPreviews]);
+            setCanUpload(true);
             const storedImages = localStorage.getItem("uploadedImages");
             const allImages = storedImages ? [...JSON.parse(storedImages), ...newPreviews] : newPreviews;
             localStorage.setItem("uploadedImages", JSON.stringify(allImages));
@@ -44,6 +49,7 @@ const Upload = () => {
   const handleRemoveImage = (index: number) => {
     const updatedImages = imagePreviews.filter((_, i) => i !== index);
     setImagePreviews(updatedImages);
+    setCanUpload(updatedImages.length > 0);
     localStorage.setItem("uploadedImages", JSON.stringify(updatedImages));
   };
 
@@ -62,6 +68,14 @@ const Upload = () => {
       handleRemoveImage(draggingIndex);
     }
     setIsDeleteEnabled(false);
+  };
+
+  const handleUploadComplete = () => {
+    setShowModal(true);
+  };
+
+  const handleGoToProfile = () => {
+    router.push("/headers/profile");
   };
 
   return (
@@ -119,7 +133,13 @@ const Upload = () => {
               </div>
 
               <div className="flex justify-center">
-                <Button label="Upload" onClick={() => {}} type="submit" styleType="white" />
+                <Button 
+                  label="Upload" 
+                  onClick={handleUploadComplete} 
+                  type="button" 
+                  styleType="white" 
+                  disabled={!canUpload}
+                />
               </div>
             </div>
           </form>
@@ -128,7 +148,7 @@ const Upload = () => {
         <div className="bg-white w-full md:w-[25%] p-6 rounded-xl shadow-xl">
           <h3 className="text-2xl font-extrabold text-black mb-5">Upload Guidelines:</h3>
           <ul className="space-y-4 text-base text-gray-800">
-            <li>• You can upload up to 5 images at a time.</li>
+            <li>• You can upload up to <strong className="text-xl">5</strong> images at a time.</li>
             <li>• Ensure that the images are of good quality (minimum resolution of 1080p recommended).</li>
             <li>• Only image files (JPEG, PNG, JPG) are supported.</li>
             <li>• Each image will be displayed in your profile once uploaded.</li>
@@ -136,6 +156,16 @@ const Upload = () => {
           </ul>
         </div>
       </div>
+
+      {showModal && (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-xl shadow-xl w-[400px] text-center">
+            <h2 className="text-2xl font-bold text-green-500">Success!</h2>
+            <p className="mb-4 text-black">Your photos have been successfully uploaded.</p>
+            <Button label="Go to Profile" onClick={handleGoToProfile} styleType="blue" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
