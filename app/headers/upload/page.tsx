@@ -10,14 +10,13 @@ import { useRouter } from "next/navigation";
 
 const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
+  const [descriptions, setDescriptions] = useState<string[]>([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalButtonText, setModalButtonText] = useState("");
-  const [canUpload, setCanUpload] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
@@ -49,13 +48,15 @@ const Upload = () => {
 
     if (validImages.length + imagePreviews.length <= 5) {
       const newPreviews: (string | ArrayBuffer | null)[] = [];
+      const newDescriptions: string[] = [];
       validImages.forEach((file) => {
         const reader = new FileReader();
         reader.onloadend = () => {
           newPreviews.push(reader.result);
+          newDescriptions.push("");
           if (newPreviews.length === validImages.length) {
             setImagePreviews((prev) => [...prev, ...newPreviews]);
-            setCanUpload(true);
+            setDescriptions((prev) => [...prev, ...newDescriptions]);
             const storedImages = localStorage.getItem("uploadedImages");
             const allImages = storedImages ? [...JSON.parse(storedImages), ...newPreviews] : newPreviews;
             localStorage.setItem("uploadedImages", JSON.stringify(allImages));
@@ -70,10 +71,31 @@ const Upload = () => {
     fileInputRef.current?.click();
   };
 
+  const handlePreviewClick = (index: number) => {
+    setSelectedImageIndex(index);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImageIndex(null);
+  };
+
+  const handleNextImage = () => {
+    if (selectedImageIndex !== null && selectedImageIndex < imagePreviews.length - 1) {
+      setSelectedImageIndex(selectedImageIndex + 1);
+    }
+  };
+
+  const handlePrevImage = () => {
+    if (selectedImageIndex !== null && selectedImageIndex > 0) {
+      setSelectedImageIndex(selectedImageIndex - 1);
+    }
+  };
+
   const handleRemoveImage = (index: number) => {
     const updatedImages = imagePreviews.filter((_, i) => i !== index);
+    const updatedDescriptions = descriptions.filter((_, i) => i !== index);
     setImagePreviews(updatedImages);
-    setCanUpload(updatedImages.length > 0);
+    setDescriptions(updatedDescriptions);
     localStorage.setItem("uploadedImages", JSON.stringify(updatedImages));
   };
 
@@ -102,12 +124,10 @@ const Upload = () => {
       return;
     }
 
-    setIsUploading(true);
     setTimeout(() => {
       setModalMessage("Your photos have been successfully uploaded.");
       setModalButtonText("Go to Profile");
       setShowModal(true);
-      setIsUploading(false);
     }, 1000);
   };
 
@@ -117,24 +137,10 @@ const Upload = () => {
     }, 500);
   };
 
-  const handlePreviewClick = (index: number) => {
-    setSelectedImageIndex(index);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedImageIndex(null);
-  };
-
-  const handleNextImage = () => {
-    if (selectedImageIndex !== null && selectedImageIndex < imagePreviews.length - 1) {
-      setSelectedImageIndex(selectedImageIndex + 1);
-    }
-  };
-
-  const handlePrevImage = () => {
-    if (selectedImageIndex !== null && selectedImageIndex > 0) {
-      setSelectedImageIndex(selectedImageIndex - 1);
-    }
+  const handleDescriptionChange = (index: number, newDescription: string) => {
+    const updatedDescriptions = [...descriptions];
+    updatedDescriptions[index] = newDescription;
+    setDescriptions(updatedDescriptions);
   };
 
   return (
@@ -213,30 +219,29 @@ const Upload = () => {
 
       {selectedImageIndex !== null && (
         <div className="fixed top-0 left-0 w-full h-full bg-slate-900 bg-opacity-55 flex justify-center items-center">
-          <div className="bg-white p-5 rounded-xl shadow-xl w-[90%] max-w-[500px] text-center">
-            <img
-              src={imagePreviews[selectedImageIndex] as string}
-              alt={`Preview ${selectedImageIndex}`}
-              className="w-full h-auto max-h-[60vh] object-contain mb-5"
-            />
-            <div className="flex justify-between mt-5">
-              <Button
-                label="Back"
-                onClick={handlePrevImage}
-                styleType="white"
-              />
-              <Button
-                label="Next"
-                onClick={handleNextImage}
-                styleType="white"
+          <div className="bg-white p-5 rounded-xl shadow-xl w-[90%] max-w-[1000px] flex">
+            <div className="flex-1">
+              <img
+                src={imagePreviews[selectedImageIndex] as string}
+                alt={`Preview ${selectedImageIndex}`}
+                className="w-full h-auto max-h-[70vh] object-contain mb-5"
               />
             </div>
-            <div className="mt-4">
-              <Button
-                label="Close"
-                onClick={handleCloseModal}
-                styleType="blue"
+            <div className="flex flex-col justify-between items-center p-5 w-[300px]">
+              <textarea
+                value={descriptions[selectedImageIndex]} // Use descriptions array for each image
+                onChange={(e) => handleDescriptionChange(selectedImageIndex, e.target.value)}
+                placeholder="Enter Description"
+                maxLength={150}
+                className="p-3 border rounded-md w-full h-44 mb-5 text-black resize-none"
               />
+              <div className="flex gap-5 justify-center w-full">
+                <Button label="Back" onClick={handlePrevImage} styleType="white" />
+                <Button label="Next" onClick={handleNextImage} styleType="white" />
+              </div>
+              <div className="mt-4">
+                <Button label="Close" onClick={handleCloseModal} styleType="blue" />
+              </div>
             </div>
           </div>
         </div>
