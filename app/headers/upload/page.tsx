@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -17,7 +18,6 @@ const Upload = () => {
   const [modalButtonText, setModalButtonText] = useState("");
   const [canUpload, setCanUpload] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
@@ -117,12 +117,24 @@ const Upload = () => {
     }, 500);
   };
 
-  const handleImageClick = (index: number) => {
+  const handlePreviewClick = (index: number) => {
     setSelectedImageIndex(index);
   };
 
   const handleCloseModal = () => {
     setSelectedImageIndex(null);
+  };
+
+  const handleNextImage = () => {
+    if (selectedImageIndex !== null && selectedImageIndex < imagePreviews.length - 1) {
+      setSelectedImageIndex(selectedImageIndex + 1);
+    }
+  };
+
+  const handlePrevImage = () => {
+    if (selectedImageIndex !== null && selectedImageIndex > 0) {
+      setSelectedImageIndex(selectedImageIndex - 1);
+    }
   };
 
   return (
@@ -158,11 +170,11 @@ const Upload = () => {
               {imagePreviews.map((preview, index) => (
                 <div
                   key={index}
-                  className="relative w-24 h-24"
+                  className="relative w-24 h-24 cursor-pointer"
+                  onClick={() => handlePreviewClick(index)}
                   draggable
                   onDragStart={() => handleDragStart(index)}
                   onDragEnd={handleDragEnd}
-                  onClick={() => handleImageClick(index)}
                 >
                   <img
                     src={preview as string}
@@ -205,9 +217,27 @@ const Upload = () => {
             <img
               src={imagePreviews[selectedImageIndex] as string}
               alt={`Preview ${selectedImageIndex}`}
-              className="w-full h-auto max-h-[75vh] object-contain mb-5"
+              className="w-full h-auto max-h-[60vh] object-contain mb-5"
             />
-            <Button label="Close" onClick={handleCloseModal} styleType="blue" />
+            <div className="flex justify-between mt-5">
+              <Button
+                label="Back"
+                onClick={handlePrevImage}
+                styleType="white"
+              />
+              <Button
+                label="Next"
+                onClick={handleNextImage}
+                styleType="white"
+              />
+            </div>
+            <div className="mt-4">
+              <Button
+                label="Close"
+                onClick={handleCloseModal}
+                styleType="blue"
+              />
+            </div>
           </div>
         </div>
       )}
