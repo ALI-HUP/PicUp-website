@@ -205,11 +205,12 @@ const Upload = () => {
           </form>
         </div>
 
-        <div className="bg-white w-full md:w-[25%] p-6 rounded-xl shadow-xl">
-          <h3 className="text-2xl font-extrabold text-black mb-5">Upload Guidelines:</h3>
+        <div className="bg-white w-full md:w-[25%] p-5 rounded-xl shadow-xl">
+          <h3 className="text-2xl font-extrabold text-black mb-3">Upload Guidelines:</h3>
           <ul className="space-y-4 text-base text-gray-800">
-            <li>• You can upload up to <strong className="text-xl">5</strong> images at a time.</li>
+            <li>• You can upload up to <strong className="text-lg">5</strong> images at a time!</li>
             <li>• Ensure that the images are of good quality (minimum resolution of 1080p recommended).</li>
+            <li>• If you click on photos, you can access to preview page. In the preview page, you can view photos and add descriptions.</li>
             <li>• Only image files (JPEG, PNG, JPG) are supported.</li>
             <li>• Each image will be displayed in your profile once uploaded.</li>
             <li>• After uploading, you'll be able to view, download, and manage your photos.</li>
@@ -228,13 +229,18 @@ const Upload = () => {
               />
             </div>
             <div className="flex flex-col justify-between items-center p-5 w-[300px]">
-              <textarea
-                value={descriptions[selectedImageIndex]} // Use descriptions array for each image
-                onChange={(e) => handleDescriptionChange(selectedImageIndex, e.target.value)}
-                placeholder="Enter Description"
-                maxLength={150}
-                className="p-3 border rounded-md w-full h-44 mb-5 text-black resize-none"
-              />
+              <div className="relative w-full h-44 text-black">
+                <textarea
+                  value={descriptions[selectedImageIndex]}
+                  onChange={(e) => handleDescriptionChange(selectedImageIndex, e.target.value)}
+                  placeholder="Enter Description"
+                  maxLength={100}
+                  className="p-3 border rounded-md w-full h-full bg-slate-200 resize-none"
+                />
+                <div className="absolute bottom-2 right-3 text-sm ">
+                  {descriptions[selectedImageIndex].length} / 100
+                </div>
+              </div>
               <div className="flex gap-5 justify-center w-full">
                 <Button label="Back" onClick={handlePrevImage} styleType="white" />
                 <Button label="Next" onClick={handleNextImage} styleType="white" />
