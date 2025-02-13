@@ -17,6 +17,7 @@ const Upload = () => {
   const [modalButtonText, setModalButtonText] = useState("");
   const [canUpload, setCanUpload] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
@@ -116,6 +117,14 @@ const Upload = () => {
     }, 500);
   };
 
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImageIndex(null);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -153,6 +162,7 @@ const Upload = () => {
                   draggable
                   onDragStart={() => handleDragStart(index)}
                   onDragEnd={handleDragEnd}
+                  onClick={() => handleImageClick(index)}
                 >
                   <img
                     src={preview as string}
@@ -188,6 +198,19 @@ const Upload = () => {
           </ul>
         </div>
       </div>
+
+      {selectedImageIndex !== null && (
+        <div className="fixed top-0 left-0 w-full h-full bg-slate-900 bg-opacity-55 flex justify-center items-center">
+          <div className="bg-white p-5 rounded-xl shadow-xl w-[90%] max-w-[500px] text-center">
+            <img
+              src={imagePreviews[selectedImageIndex] as string}
+              alt={`Preview ${selectedImageIndex}`}
+              className="w-full h-auto max-h-[75vh] object-contain mb-5"
+            />
+            <Button label="Close" onClick={handleCloseModal} styleType="blue" />
+          </div>
+        </div>
+      )}
 
       {showModal && (
         <div className="fixed top-0 left-0 w-full h-full bg-slate-900 bg-opacity-55 flex justify-center items-center">
