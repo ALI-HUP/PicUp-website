@@ -1,41 +1,32 @@
-// app/photos/[id]/page.tsx (App Router)
+// app/photos/[id]/page.tsx
 import React from "react";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 
 interface PhotoPageProps {
   params: {
     id: string;
   };
+  searchParams: {
+    src: string; // The image source passed as a query parameter
+  };
 }
 
-const PhotoPage = ({ params }: PhotoPageProps) => {
+const PhotoPage = async ({ params, searchParams }: PhotoPageProps) => {
   const { id } = params;
+  const { src } = searchParams;
 
-  // Fetch the photo data (replace this with your actual data fetching logic)
-  const photos = [
-    { src: "/pics/IMG_20220307_152910_643.jpg", description: "Photo 1 Description" },
-    { src: "/pics/wp7864479.png", description: "Photo 2 Description" },
-    { src: "/pics/wp7937871.jpg", description: "Photo 3 Description" },
-  ];
-
-  const photo = photos[Number(id)];
-
-  if (!photo) {
-    return notFound(); // Show a 404 page if the photo doesn't exist
+  if (!src) {
+    return notFound(); // Show a 404 page if the image source is missing
   }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-10">
       <div className="max-w-4xl w-full">
-        <Image
-          src={photo.src}
+        <img // Use <img> for all photos
+          src={src}
           alt={`Photo ${id}`}
-          width={800}
-          height={800}
-          className="object-cover rounded-lg"
+          className="object-cover rounded-lg w-full h-auto"
         />
-        <p className="mt-5 text-lg text-center">{photo.description}</p>
       </div>
     </div>
   );
