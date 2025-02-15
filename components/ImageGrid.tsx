@@ -14,7 +14,13 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images, withIconsAndButtons = tru
     <div className="flex flex-wrap justify-center gap-5 mt-10">
       {images.map((image, index) => (
         <div key={index} className="sm:w-1/4">
-          <Link href={`/photos/${index}`} passHref> {/* Dynamic route */}
+          <Link
+            href={{
+              pathname: `/photos/${index}`,
+              query: { src: typeof image === "string" ? image : image.src }, // Pass the correct image source
+            }}
+            passHref
+          >
             <Image
               src={image}
               alt={`photo ${index}`}
