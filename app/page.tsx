@@ -3,17 +3,19 @@
 import React from "react";
 import Header from "../components/Header";
 import ImageGrid from "../components/ImageGrid";
-import Pics1 from "@/public/pics/IMG_20220307_152910_643.jpg";
-import Pics2 from "@/public/pics/wp7864479.png";
-import Pics3 from "@/public/pics/wp7937871.jpg";
+
+const hardcodedImages = [
+  { id: 101, src: "/pics/IMG_20220307_152910_643.jpg" },
+  { id: 102, src: "/pics/wp7864479.png" },
+  { id: 103, src: "/pics/wp7937871.jpg" },
+  { id: 104, src: "/pics/IMG_20220307_152910_643.jpg" },
+];
 
 const Home = () => {
-  const images = [Pics1, Pics2, Pics3, Pics1];
-
   return (
     <div className="mb-40">
       <Header />
-      <ImageGrid images={images} downloadLinks={[]} />
+      <ImageGrid images={hardcodedImages} />
     </div>
   );
 };

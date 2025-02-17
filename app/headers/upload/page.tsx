@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Uploadpic from "@/public/svg/upload_7078851.png";
 import Button from "@/components/Button";
 import Deletepic from "@/public/svg/delete_2550254.png";
 import { useRouter } from "next/navigation";
+import { useImageStore } from "@/store/imageStore";
 
 const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
@@ -17,12 +18,13 @@ const Upload = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalButtonText, setModalButtonText] = useState("");
-  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
+  const addImage = useImageStore((state) => state.addImage);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    const validImages = files.filter((file) => (file as File).type.startsWith("image/"));
+    const validImages = files.filter((file) => file.type.startsWith("image/"));
 
     if (validImages.length + imagePreviews.length > 5) {
       setModalMessage("You can only upload up to 5 images at a time.");
@@ -46,25 +48,24 @@ const Upload = () => {
       return;
     }
 
-    if (validImages.length + imagePreviews.length <= 5) {
-      const newPreviews: (string | ArrayBuffer | null)[] = [];
-      const newDescriptions: string[] = [];
-      validImages.forEach((file) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
+    const newPreviews: (string | ArrayBuffer | null)[] = [];
+    const newDescriptions: string[] = [];
+    validImages.forEach((file) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (reader.result) {
           newPreviews.push(reader.result);
           newDescriptions.push("");
-          if (newPreviews.length === validImages.length) {
-            setImagePreviews((prev) => [...prev, ...newPreviews]);
-            setDescriptions((prev) => [...prev, ...newDescriptions]);
-            const storedImages = localStorage.getItem("uploadedImages");
-            const allImages = storedImages ? [...JSON.parse(storedImages), ...newPreviews] : newPreviews;
-            localStorage.setItem("uploadedImages", JSON.stringify(allImages));
-          }
-        };
-        reader.readAsDataURL(file);
-      });
-    }
+          addImage(reader.result.toString());
+        }
+
+        if (newPreviews.length === validImages.length) {
+          setImagePreviews((prev) => [...prev, ...newPreviews]);
+          setDescriptions((prev) => [...prev, ...newDescriptions]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   const handleButtonClick = () => {
