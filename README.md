@@ -12,12 +12,14 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 In chat-GPT you can get help from this chat: https://chatgpt.com/c/6788e5cf-1904-800b-9670-7efde8bfc623
 or
+In chat-GPT you can get help from this chat: https://chatgpt.com/c/67b225c4-d0fc-800b-b616-6157310d98c3 (click help)
+or
 In deepseek you can get help from this chat: https://chat.deepseek.com/a/chat/s/34a7df0d-f423-47b4-838b-78a9f121f765
 
 
 
 
-
+## Explanation
 first, here is a small review of the subject:
 im having a next js tailwind project
 its a kinda blog for photographers where they can upload their photos
