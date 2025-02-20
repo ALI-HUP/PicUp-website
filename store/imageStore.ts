@@ -8,24 +8,24 @@ interface Image {
 
 interface ImageStore {
   images: Image[];
+  selectedImage: string | null;
   addImage: (newImage: string) => void;
+  setSelectedImage: (src: string | null) => void;
 }
 
 export const useImageStore = create(
   persist<ImageStore>(
-    (set, get) => ({
-      images: [
-        { id: 1, src: "/pics/IMG_20220307_152910_643.jpg" },
-        { id: 2, src: "/pics/wp7864479.png" },
-        { id: 3, src: "/pics/wp7937871.jpg" },
-      ],
+    (set) => ({
+      images: [],
+      selectedImage: null,
       addImage: (newImage) =>
         set((state) => ({
-          images: [...state.images, { id: state.images.length + 1, src: newImage }],
+          images: [...state.images, { id: Date.now(), src: newImage }],
         })),
+      setSelectedImage: (src) => set({ selectedImage: src }),
     }),
     {
-      name: "image-storage", // LocalStorage key
+      name: "image-storage",
     }
   )
 );

@@ -96,7 +96,10 @@ const Upload = () => {
     const updatedImages = imagePreviews.filter((_, i) => i !== index);
     const updatedDescriptions = descriptions.filter((_, i) => i !== index);
     setImagePreviews(updatedImages);
-    setDescriptions(updatedDescriptions);
+    setDescriptions(updatedDescriptions);  
+    useImageStore.setState((state) => ({
+      images: state.images.filter((img) => img.src !== imagePreviews[index]),
+    }));
     localStorage.setItem("uploadedImages", JSON.stringify(updatedImages));
   };
 
