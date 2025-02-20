@@ -9,9 +9,10 @@ import Image from "next/image";
 import profile from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQFQNHJlfQ2.jpg";
 import Button from "@/components/Button";
 import Camera from "@/public/svg/camera_2441817.png";
+import { useImageStore } from "@/store/imageStore";
 
 const Profile = () => {
-  const [uploadedImages, setUploadedImages] = useState<(string | StaticImageData)[]>([]);
+  const images = useImageStore((state) => state.images);
   const [likedImages, setLikedImages] = useState<string[]>([]);
   const [savedImages, setSavedImages] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -21,16 +22,8 @@ const Profile = () => {
   const [profilePic, setProfilePic] = useState<string | StaticImageData>(profile);
 
   useEffect(() => {
-    const storedImages = localStorage.getItem("uploadedImages");
-    if (storedImages) {
-      setUploadedImages(JSON.parse(storedImages));
-    }
-
-    const storedLikedImages = JSON.parse(localStorage.getItem("likedImages") || "[]");
-    setLikedImages(storedLikedImages);
-
-    const storedSavedImages = JSON.parse(localStorage.getItem("savedImages") || "[]");
-    setSavedImages(storedSavedImages);
+    setLikedImages(JSON.parse(localStorage.getItem("likedImages") || "[]"));
+    setSavedImages(JSON.parse(localStorage.getItem("savedImages") || "[]"));
 
     const storedProfilePic = localStorage.getItem("profilePic");
     if (storedProfilePic) {
@@ -47,8 +40,6 @@ const Profile = () => {
     }
   }, []);
 
-  const downloadLinks = uploadedImages.map((_, index) => `https://your-website-link.com/${index + 1}`);
-
   const handleEditClick = () => {
     if (userName.length >= 3 && userBio.length >= 10) {
       if (isEditing) {
@@ -57,12 +48,7 @@ const Profile = () => {
       }
       setIsEditing(!isEditing);
     } else {
-      if (userName.length < 3) {
-        alert("Username must be at least 3 characters long.");
-      }
-      if (userBio.length < 10) {
-        alert("Bio must be at least 10 characters long.");
-      }
+      alert("Username must be at least 3 characters long and Bio at least 10 characters.");
     }
   };
 
@@ -77,10 +63,6 @@ const Profile = () => {
       };
       reader.readAsDataURL(file);
     }
-  };
-
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
   };
 
   return (
@@ -107,7 +89,7 @@ const Profile = () => {
                     className="hidden"
                     onChange={handleProfilePicChange}
                   />
-                  <Image alt="camera" src={Camera} className="w-9 h-9 p-1"/>
+                  <Image alt="camera" src={Camera} className="w-9 h-9 p-1" />
                 </label>
               </div>
             )}
@@ -149,37 +131,34 @@ const Profile = () => {
               className="w-full"
             />
             <Link href="/headers/upload" passHref>
-              <Button label="Upload" type="button" styleType="white" onClick={() => {}} className="w-full" />
+              <Button 
+                label="Upload" 
+                type="button" 
+                styleType="white" 
+                className="w-full" 
+                onClick={() => {}} 
+              />
             </Link>
           </div>
         </div>
 
         <div className="flex justify-center space-x-64 text-2xl pb-5 font-bold">
-          <button
-            className={`p-2 ${activeTab === "photos" ? "text-white" : "text-gray-400"}`}
-            onClick={() => handleTabClick("photos")}
-          >
-            Photos: {uploadedImages.length}
+          <button className={`p-2 ${activeTab === "photos" ? "text-white" : "text-gray-400"}`} onClick={() => setActiveTab("photos")}>
+            Photos: {images.length}
           </button>
-          <button
-            className={`p-2 ${activeTab === "liked" ? "text-white" : "text-gray-400"}`}
-            onClick={() => handleTabClick("liked")}
-          >
+          <button className={`p-2 ${activeTab === "liked" ? "text-white" : "text-gray-400"}`} onClick={() => setActiveTab("liked")}>
             Liked: {likedImages.length}
           </button>
-          <button
-            className={`p-2 ${activeTab === "saved" ? "text-white" : "text-gray-400"}`}
-            onClick={() => handleTabClick("saved")}
-          >
+          <button className={`p-2 ${activeTab === "saved" ? "text-white" : "text-gray-400"}`} onClick={() => setActiveTab("saved")}>
             Saved: {savedImages.length}
           </button>
         </div>
       </div>
 
       <div className="mt-5">
-        {activeTab === "photos" && <ImageGrid images={uploadedImages as (string | StaticImageData)[]} downloadLinks={downloadLinks} />}
-        {activeTab === "liked" && <ImageGrid images={likedImages as string[]} downloadLinks={likedImages as string[]} />}
-        {activeTab === "saved" && <ImageGrid images={savedImages as string[]} downloadLinks={savedImages as string[]} />}
+        {activeTab === "photos" && <ImageGrid images={images.map(img => ({ id: String(img.id), src: img.src }))} />}
+        {activeTab === "liked" && <ImageGrid images={likedImages.map((src) => ({ id: src, src }))} />}
+        {activeTab === "saved" && <ImageGrid images={savedImages.map((src) => ({ id: src, src }))} />}
       </div>
     </div>
   );
