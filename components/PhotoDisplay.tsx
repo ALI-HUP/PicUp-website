@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import ImageGrid from "@/components/ImageGrid";
 
 interface PhotoDisplayProps {
   src: string;
@@ -9,8 +10,8 @@ interface PhotoDisplayProps {
 
 const PhotoDisplay: React.FC<PhotoDisplayProps> = ({ src }) => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-slate-700">
-      <div className="relative bg-white p-5 rounded-lg shadow-lg max-w-[90%] max-h-[90vh]">
+    <div className="flex items-center min-h-screen bg-slate-200">
+      <div className="relative rounded-xl max-w-[90%] max-h-[90vh]">
         <Image
           src={src}
           alt="Selected Photo"
