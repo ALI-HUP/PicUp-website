@@ -10,14 +10,14 @@ interface PhotoDisplayProps {
 
 const PhotoDisplay: React.FC<PhotoDisplayProps> = ({ src }) => {
   return (
-    <div className="flex items-center min-h-screen bg-slate-200">
-      <div className="relative rounded-xl max-w-[90%] max-h-[90vh]">
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="relative max-w-[90%] max-h-[90vh]">
         <Image
           src={src}
           alt="Selected Photo"
           width={800}
           height={800}
-          className="max-w-full max-h-screen object-contain rounded-md"
+          className=""
           unoptimized
         />
       </div>
