@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import ImageGrid from "@/components/ImageGrid";
 
 interface PhotoDisplayProps {
   src: string;
