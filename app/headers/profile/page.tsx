@@ -16,8 +16,8 @@ const Profile = () => {
   const [likedImages, setLikedImages] = useState<string[]>([]);
   const [savedImages, setSavedImages] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [userName, setUserName] = useState("User - Name");
-  const [userBio, setUserBio] = useState("Lorem ipsum, dolor sit amet consectetur adipisicing elit.");
+  const [userName, setUserName] = useState("User Name");
+  const [userBio, setUserBio] = useState("Lorem ipsum dolor sit amet consectetur adipisicing elit.");
   const [activeTab, setActiveTab] = useState("photos");
   const [profilePic, setProfilePic] = useState<string | StaticImageData>(profile);
 
