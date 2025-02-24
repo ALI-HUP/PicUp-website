@@ -56,7 +56,6 @@ const Upload = () => {
         if (reader.result) {
           newPreviews.push(reader.result);
           newDescriptions.push("");
-          addImage(reader.result.toString());
         }
 
         if (newPreviews.length === validImages.length) {
@@ -131,6 +130,7 @@ const Upload = () => {
     const storedDescriptions = JSON.parse(localStorage.getItem("imageDescriptions") || "{}");
     imagePreviews.forEach((imgSrc, index) => {
       storedDescriptions[imgSrc as string] = descriptions[index] || "";
+      addImage(imgSrc as string);
     });
     localStorage.setItem("imageDescriptions", JSON.stringify(storedDescriptions));
   
