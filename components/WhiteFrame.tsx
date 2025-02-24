@@ -3,6 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import Love from "@/public/svg/heart-svgrepo-com.png";
 import Lovefilled from "@/public/svg/heart-filled-svgrepo-com.png";
 import Share from "@/public/svg/share-svgrepo-com.png";
+import Sharefilled from "@/public/svg/share-filled-svgrepo-com.png";
 import Saved from "@/public/svg/saved-svgrepo-com.png";
 import Savedfilled from "@/public/svg/saved-filled-svgrepo-com.png";
 import Button from "@/components/Button";
