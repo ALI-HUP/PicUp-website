@@ -127,7 +127,13 @@ const Upload = () => {
       setShowModal(true);
       return;
     }
-
+  
+    const storedDescriptions = JSON.parse(localStorage.getItem("imageDescriptions") || "{}");
+    imagePreviews.forEach((imgSrc, index) => {
+      storedDescriptions[imgSrc as string] = descriptions[index] || "";
+    });
+    localStorage.setItem("imageDescriptions", JSON.stringify(storedDescriptions));
+  
     setTimeout(() => {
       setModalMessage("Your photos have been successfully uploaded.");
       setModalButtonText("Go to Profile");
