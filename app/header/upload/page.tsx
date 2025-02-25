@@ -143,7 +143,7 @@ const Upload = () => {
 
   const handleGoToProfile = () => {
     setTimeout(() => {
-      router.push("/headers/profile");
+      router.push("/header/profile");
     }, 500);
   };
 

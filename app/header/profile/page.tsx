@@ -130,7 +130,7 @@ const Profile = () => {
               onClick={handleEditClick}
               className="w-full"
             />
-            <Link href="/headers/upload" passHref>
+            <Link href="/header/upload" passHref>
               <Button 
                 label="Upload" 
                 type="button" 
