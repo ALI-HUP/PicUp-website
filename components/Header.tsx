@@ -11,16 +11,16 @@ const Header: React.FC = () => {
       </div>
 
       <div className="flex space-x-10 absolute left-1/2 -translate-x-1/2">
-        <Link href="/headers/upload" className="underline-animation">
+        <Link href="/header/upload" className="underline-animation">
           Upload
         </Link>
-        <Link href="/headers/saved" className="underline-animation">
+        <Link href="/header/saved" className="underline-animation">
           Saved
         </Link>
       </div>
 
       <div className="flex text-2xl font-bold">
-        <Link href="/headers/profile" className="underline-animation">
+        <Link href="/header/profile" className="underline-animation">
           Profile
         </Link>
       </div>
