@@ -193,9 +193,9 @@ const Upload = () => {
                   onDragEnd={handleDragEnd}
                 >
                   <div className="absolute inset-0 flex justify-center items-center">
-                    <div className="absolute w-24 h-24 rounded-full bg-white opacity-50 animate-ping-slow delay-400"></div>
-                    <div className="absolute w-16 h-16 rounded-full bg-white opacity-75 animate-ping-slow delay-600"></div>
-                    <div className="absolute w-8 h-8 rounded-full bg-white opacity-90 animate-ping-slow delay-800"></div>
+                    <div className="absolute w-24 h-24 rounded-full bg-white opacity-50 ping-slow"></div>
+                    <div className="absolute w-16 h-16 rounded-full bg-white opacity-75 ping-slow delay-200"></div>
+                    <div className="absolute w-8 h-8 rounded-full bg-white opacity-90 ping-slow delay-400"></div>
                   </div>
 
                   <img
