@@ -253,13 +253,13 @@ const Upload = () => {
               <div className="relative w-full h-44 text-black">
                 <textarea
                   value={descriptions[selectedImageIndex]}
-                  onChange={(e) => handleDescriptionChange(selectedImageIndex, e.target.value)}
+                  onChange={(e) => handleDescriptionChange(selectedImageIndex, e.target.value.slice(0, 50))}
                   placeholder="Enter Description"
-                  maxLength={100}
-                  className="p-3 border rounded-md w-full h-full bg-slate-200 resize-none"
+                  maxLength={50}
+                  className="p-3 border rounded-md w-full h-full bg-slate-200 resize-none break-words whitespace-normal"
                 />
                 <div className="absolute bottom-2 right-3 text-sm ">
-                  {descriptions[selectedImageIndex].length} / 100
+                  {descriptions[selectedImageIndex].length} / 50
                 </div>
               </div>
               <div className="flex gap-5 justify-center w-full">

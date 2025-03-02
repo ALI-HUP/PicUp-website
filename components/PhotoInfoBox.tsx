@@ -24,10 +24,9 @@ const PhotoInfoBox: React.FC<PhotoInfoBoxProps> = ({ src }) => {
   return (
     <div className="w-[30%] bg-white p-5 text-black rounded-xl shadow-xl flex flex-col gap-10 justify-center">
       <h2 className="text-2xl font-bold">{userName}</h2>
-      <p className="text-xl">Description: {description}</p>   
-      <div>
-        <WhiteFrame imageSrc={src} />  
-      </div>  
+      <p className="text-lg break-words whitespace-normal">Description: {description} </p>
+      
+      <WhiteFrame imageSrc={src} />
     </div>
   );
 };
