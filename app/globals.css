@@ -47,7 +47,7 @@ body {
 }
 
 .ping-slow {
-  animation: ping-slow 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: ping-slow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .delay-200 {
