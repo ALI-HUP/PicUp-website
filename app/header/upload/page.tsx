@@ -186,20 +186,31 @@ const Upload = () => {
               {imagePreviews.map((preview, index) => (
                 <div
                   key={index}
-                  className="relative w-24 h-24 cursor-pointer"
+                  className="relative w-24 h-24 cursor-pointer group overflow-hidden"
                   onClick={() => handlePreviewClick(index)}
                   draggable
                   onDragStart={() => handleDragStart(index)}
                   onDragEnd={handleDragEnd}
                 >
+                  <div className="absolute inset-0 flex justify-center items-center">
+                    <div className="absolute w-24 h-24 rounded-full bg-white opacity-50 animate-ping-slow delay-400"></div>
+                    <div className="absolute w-16 h-16 rounded-full bg-white opacity-75 animate-ping-slow delay-600"></div>
+                    <div className="absolute w-8 h-8 rounded-full bg-white opacity-90 animate-ping-slow delay-800"></div>
+                  </div>
+
                   <img
                     src={preview as string}
                     alt={`Preview ${index}`}
-                    className="h-full w-full object-cover rounded-lg"
+                    className="h-full w-full object-cover rounded-lg transition-opacity duration-300 group-hover:opacity-80"
                   />
+
+                  <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="bg-slate-100 text-black text-xs px-4 py-1 rounded-full">Click</span>
+                  </div>
                 </div>
               ))}
             </div>
+
             <div className="flex gap-5">
               <div className={`flex justify-center items-center ${isDeleteEnabled ? "bg-red-500 cursor-pointer border-white" : "bg-slate-200 border-slate-400 text-slate-400"} p-3 font-medium rounded-xl border`}
                 onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}
@@ -242,13 +253,13 @@ const Upload = () => {
               <div className="relative w-full h-44 text-black">
                 <textarea
                   value={descriptions[selectedImageIndex]}
-                  onChange={(e) => handleDescriptionChange(selectedImageIndex, e.target.value)}
+                  onChange={(e) => handleDescriptionChange(selectedImageIndex, e.target.value.slice(0, 50))}
                   placeholder="Enter Description"
-                  maxLength={100}
-                  className="p-3 border rounded-md w-full h-full bg-slate-200 resize-none"
+                  maxLength={50}
+                  className="p-3 border rounded-md w-full h-full bg-slate-200 resize-none break-words whitespace-normal"
                 />
                 <div className="absolute bottom-2 right-3 text-sm ">
-                  {descriptions[selectedImageIndex].length} / 100
+                  {descriptions[selectedImageIndex].length} / 50
                 </div>
               </div>
               <div className="flex gap-5 justify-center w-full">
