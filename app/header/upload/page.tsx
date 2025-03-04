@@ -16,7 +16,7 @@ const Upload = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
-  const [notification, setNotification] = useState<{ message: string; type: "error" | "warning" | "success" | "info" } | null>(null);
+  const [notification, setNotification] = useState<{ message: string; type: "error" | "warning" | "success" | "info"; onConfirm?: () => void; } | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const addImage = useImageStore((state) => state.addImage);
@@ -125,13 +125,10 @@ const Upload = () => {
     });
     localStorage.setItem("imageDescriptions", JSON.stringify(storedDescriptions));
 
-    setTimeout(() => {
-      setNotification({ message: "Your photos have been successfully uploaded.", type: "success" });
-      setTimeout(() => {
-        router.push("/header/profile");
-      }, 500);
-    }, 1000);
-  };
+    setNotification({
+      message: "Your photos have been successfully uploaded.",
+      type: "success",
+    });}           
 
   const handleDescriptionChange = (index: number, newDescription: string) => {
     const updatedDescriptions = [...descriptions];
