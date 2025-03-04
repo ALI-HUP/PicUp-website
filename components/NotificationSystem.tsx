@@ -1,43 +1,36 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
 
 interface NotificationProps {
   message: string;
-  type?: "success" | "error" | "warning" | "info"; // Different types of messages
-  onClose?: () => void; // Optional close function
-  autoClose?: boolean; // Should auto-close?
+  type?: "success" | "error" | "warning" | "info";
+  onClose?: () => void;
 }
 
-const NotificationSystem: React.FC<NotificationProps> = ({ message, type = "info", onClose, autoClose = true }) => {
-  useEffect(() => {
-    if (autoClose) {
-      const timer = setTimeout(() => {
-        onClose?.();
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [autoClose, onClose]);
+const NotificationSystem: React.FC<NotificationProps> = ({ message, type = "info", onClose }) => {
+  const router = useRouter();
 
-  // Define different colors based on notification type
-  const getBgColor = () => {
-    switch (type) {
-      case "success":
-        return "bg-green-500 text-white";
-      case "error":
-        return "bg-red-500 text-white";
-      case "warning":
-        return "bg-yellow-500 text-black";
-      default:
-        return "bg-blue-500 text-white";
+  const handleButtonClick = () => {
+    if (type === "success") {
+      router.push("/header/profile");
     }
+    onClose?.();
   };
 
   return (
-    <div className={`fixed top-10 left-1/2 transform -translate-x-1/2 p-4 rounded-lg shadow-lg ${getBgColor()} text-center`}>
-      <h2 className="text-lg font-bold">{message}</h2>
-      {onClose && (
-        <Button label="Close" onClick={onClose} styleType="white" className="mt-2" />
-      )}
+    <div className="fixed inset-0 flex justify-center items-center bg-slate-900 bg-opacity-55">
+      <div className="p-5 rounded-lg shadow-lg bg-white text-black text-center">
+        <h2 className="text-xl font-bold p-2">{message}</h2>
+        {onClose && (
+          <Button
+            label={type === "success" ? "Go to Profile" : "Close"}
+            onClick={handleButtonClick}
+            styleType="blue"
+            className="mt-5"
+          />
+        )}
+      </div>
     </div>
   );
 };
