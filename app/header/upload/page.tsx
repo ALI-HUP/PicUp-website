@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import Deletepic from "@/public/svg/delete_2550254.png";
 import { useRouter } from "next/navigation";
 import { useImageStore } from "@/store/imageStore";
+import NotificationSystem from "@/components/NotificationSystem";
 
 const Upload = () => {
   const [imagePreviews, setImagePreviews] = useState<(string | ArrayBuffer | null)[]>([]);
@@ -15,9 +16,7 @@ const Upload = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [modalButtonText, setModalButtonText] = useState("");
+  const [notification, setNotification] = useState<{ message: string; type: "error" | "warning" | "success" | "info"; onConfirm?: () => void; } | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const addImage = useImageStore((state) => state.addImage);
@@ -27,24 +26,18 @@ const Upload = () => {
     const validImages = files.filter((file) => file.type.startsWith("image/"));
 
     if (validImages.length + imagePreviews.length > 5) {
-      setModalMessage("You can only upload up to 5 images at a time.");
-      setModalButtonText("Continue");
-      setShowModal(true);
+      setNotification({ message: "You can only upload up to 5 images at a time.", type: "error" });
       return;
     }
 
     if (validImages.length === 0) {
-      setModalMessage("Please select images to upload.");
-      setModalButtonText("Choose Files");
-      setShowModal(true);
+      setNotification({ message: "Please select images to upload.", type: "warning" });
       return;
     }
 
     const invalidFiles = files.filter((file) => !file.type.startsWith("image/"));
     if (invalidFiles.length > 0) {
-      setModalMessage("Only image files (JPEG, PNG, JPG) are allowed.");
-      setModalButtonText("Continue");
-      setShowModal(true);
+      setNotification({ message: "Only image files (JPEG, PNG, JPG) are allowed.", type: "error" });
       return;
     }
 
@@ -121,35 +114,25 @@ const Upload = () => {
 
   const handleUploadComplete = () => {
     if (imagePreviews.length === 0) {
-      setModalMessage("Please select images to upload.");
-      setModalButtonText("Choose Files");
-      setShowModal(true);
+      setNotification({ message: "Please select images to upload.", type: "warning" });
       return;
     }
-  
+
     const storedDescriptions = JSON.parse(localStorage.getItem("imageDescriptions") || "{}");
     imagePreviews.forEach((imgSrc, index) => {
       storedDescriptions[imgSrc as string] = descriptions[index] || "";
       addImage(imgSrc as string);
     });
     localStorage.setItem("imageDescriptions", JSON.stringify(storedDescriptions));
-  
-    setTimeout(() => {
-      setModalMessage("Your photos have been successfully uploaded.");
-      setModalButtonText("Go to Profile");
-      setShowModal(true);
-    }, 1000);
-  };
 
-  const handleGoToProfile = () => {
-    setTimeout(() => {
-      router.push("/header/profile");
-    }, 500);
-  };
+    setNotification({
+      message: "Your photos have been successfully uploaded.",
+      type: "success",
+    });}           
 
   const handleDescriptionChange = (index: number, newDescription: string) => {
     const updatedDescriptions = [...descriptions];
-    updatedDescriptions[index] = newDescription;
+    updatedDescriptions[index] = newDescription.slice(0, 50);
     setDescriptions(updatedDescriptions);
   };
 
@@ -212,10 +195,9 @@ const Upload = () => {
 
             <div className="flex gap-5">
               <div className={`flex justify-center items-center ${isDeleteEnabled ? "bg-red-500 cursor-pointer border-white" : "bg-slate-200 border-slate-400 text-slate-400"} p-3 font-medium rounded-xl border`}
-                onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}
-              >
+                onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}>
                 <Image src={Deletepic} alt="Delete" className="w-6 h-6" />
-                <span className="ml-2">{isDeleteEnabled ? "Drop to delete" : "Drag to delete"} </span>
+                <span className="ml-2">{isDeleteEnabled ? "Drop to delete" : "Drag to delete"}</span>
               </div>
 
               <div className="flex justify-center">
@@ -273,28 +255,7 @@ const Upload = () => {
         </div>
       )}
 
-{showModal && modalButtonText === "Go to Profile" && (
-  <div className="absolute top-[4rem] left-0 w-full h-[calc(100vh-4rem)] z-[-1]">
-    <video
-      className="w-full h-full object-cover opacity-40"
-      autoPlay
-      loop
-      muted
-      playsInline
-    >
-      <source src="/video/success-paper.mp4" type="video/mp4" />
-    </video>
-  </div>
-)}
-
-      {showModal && (
-        <div className="fixed top-0 left-0 w-full h-full bg-slate-900 bg-opacity-55 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-xl shadow-xl w-[400px] text-center">
-            <h2 className="text-2xl font-bold text-black m-5">{modalMessage}</h2>
-            <Button label={modalButtonText} onClick={modalButtonText === "Go to Profile" ? handleGoToProfile : () => setShowModal(false)} styleType="blue" />
-          </div>
-        </div>
-      )}
+      {notification && <NotificationSystem message={notification.message} type={notification.type} onClose={() => setNotification(null)} />}
     </div>
   );
 };
