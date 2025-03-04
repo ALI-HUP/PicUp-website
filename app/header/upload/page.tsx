@@ -273,6 +273,20 @@ const Upload = () => {
         </div>
       )}
 
+{showModal && modalButtonText === "Go to Profile" && (
+  <div className="absolute top-[4rem] left-0 w-full h-[calc(100vh-4rem)] z-[-1]">
+    <video
+      className="w-full h-full object-cover opacity-40"
+      autoPlay
+      loop
+      muted
+      playsInline
+    >
+      <source src="/video/success-paper.mp4" type="video/mp4" />
+    </video>
+  </div>
+)}
+
       {showModal && (
         <div className="fixed top-0 left-0 w-full h-full bg-slate-900 bg-opacity-55 flex justify-center items-center">
           <div className="bg-white p-6 rounded-xl shadow-xl w-[400px] text-center">
