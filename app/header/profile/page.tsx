@@ -10,6 +10,7 @@ import profile from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQFQN
 import Button from "@/components/Button";
 import Camera from "@/public/svg/camera_2441817.png";
 import { useImageStore } from "@/store/imageStore";
+import NotificationSystem from "@/components/NotificationSystem";
 
 const Profile = () => {
   const images = useImageStore((state) => state.images);
@@ -20,6 +21,7 @@ const Profile = () => {
   const [userBio, setUserBio] = useState("Lorem ipsum dolor sit amet consectetur adipisicing elit.");
   const [activeTab, setActiveTab] = useState("photos");
   const [profilePic, setProfilePic] = useState<string | StaticImageData>(profile);
+  const [notification, setNotification] = useState<{ message: string; type: "error" | "info" | "success" } | null>(null);
 
   useEffect(() => {
     setLikedImages(JSON.parse(localStorage.getItem("likedImages") || "[]"));
@@ -41,15 +43,23 @@ const Profile = () => {
   }, []);
 
   const handleEditClick = () => {
-    if (userName.length >= 3 && userBio.length >= 10) {
-      if (isEditing) {
-        localStorage.setItem("userName", userName);
-        localStorage.setItem("userBio", userBio);
-      }
-      setIsEditing(!isEditing);
-    } else {
-      alert("Username must be at least 3 characters long and Bio at least 10 characters.");
+    if (userName.length < 3) {
+      setNotification({ message: "Username must be at least 3 characters long.", type: "error" });
+      return;
     }
+
+    if (userBio.length < 10) {
+      setNotification({ message: "Bio must be at least 10 characters long.", type: "error" });
+      return;
+    }
+
+    if (isEditing) {
+      localStorage.setItem("userName", userName);
+      localStorage.setItem("userBio", userBio);
+      setNotification({ message: "Profile updated successfully!", type: "success" });
+    }
+
+    setIsEditing(!isEditing);
   };
 
   const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -160,6 +170,8 @@ const Profile = () => {
         {activeTab === "liked" && <ImageGrid images={likedImages.map((src) => ({ id: src, src }))} />}
         {activeTab === "saved" && <ImageGrid images={savedImages.map((src) => ({ id: src, src }))} />}
       </div>
+
+      {notification && <NotificationSystem message={notification.message} type={notification.type} onClose={() => setNotification(null)} />}
     </div>
   );
 };
