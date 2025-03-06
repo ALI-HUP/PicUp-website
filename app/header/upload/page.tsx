@@ -87,11 +87,22 @@ const Upload = () => {
   const handleRemoveImage = (index: number) => {
     const updatedImages = imagePreviews.filter((_, i) => i !== index);
     const updatedDescriptions = descriptions.filter((_, i) => i !== index);
+    
     setImagePreviews(updatedImages);
-    setDescriptions(updatedDescriptions);  
+    setDescriptions(updatedDescriptions);
+  
+    if (selectedImageIndex !== null) {
+      if (updatedImages.length === 0) {
+        setSelectedImageIndex(null);
+      } else {
+        setSelectedImageIndex((prev) => Math.min(prev! - 1, updatedImages.length - 1));
+      }
+    }
+  
     useImageStore.setState((state) => ({
       images: state.images.filter((img) => img.src !== imagePreviews[index]),
     }));
+  
     localStorage.setItem("uploadedImages", JSON.stringify(updatedImages));
   };
 
@@ -247,8 +258,9 @@ const Upload = () => {
                 <Button label="Back" onClick={handlePrevImage} styleType="white" />
                 <Button label="Next" onClick={handleNextImage} styleType="white" />
               </div>
-              <div className="mt-4">
-                <Button label="Close" onClick={handleCloseModal} styleType="blue" />
+              <div className="flex gap-5 justify-center w-full">
+                <Button label="Done" onClick={handleCloseModal} styleType="blue" />
+                <Button label="Delete" onClick={() => handleRemoveImage(selectedImageIndex!)} styleType="red" />
               </div>
             </div>
           </div>
