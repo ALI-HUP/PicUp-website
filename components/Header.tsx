@@ -1,12 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import Logo from '@/public/logo/logo.png';
 
 const Header: React.FC = () => {
   return (
     <header className="flex text-xl items-center justify-between p-4 bg-slate-900 text-white">
-      <div className="flex text-3xl font-extrabold hover:scale-105 transition-all duration-300">
-        <Link href="/">
-          <h1>PicUp Website</h1>
+      <div className="flex text-3xl font-extrabold group relative overflow-hidden">
+        <Link href="/" className="flex">
+          <Image src={Logo} alt="logo" className="w-[60px] h-8 mr-3" />
+          
+          <h1 className="transform translate-x-[-100%] opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+            PicUp Website
+          </h1>
         </Link>
       </div>
 
