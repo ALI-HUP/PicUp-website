@@ -1,10 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import Logo from '@/public/logo/Untitled-2.png';
 
 const Header: React.FC = () => {
   return (
-    <header className="flex text-xl items-center justify-between p-4 bg-slate-900 text-white">
+    <header className="flex text-xl items-center justify-between p-3 bg-slate-900 text-white">
       <div className="flex text-3xl font-extrabold hover:scale-105 transition-all duration-300">
+        <Image src={Logo} alt='oops' className='w-[60px] h-8 mr-3'/>
         <Link href="/">
           <h1>PicUp Website</h1>
         </Link>
