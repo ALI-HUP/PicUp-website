@@ -87,7 +87,7 @@ const WhiteFrame: React.FC<Props> = ({ imageSrc }) => {
 
   return (
     <div className="relative bg-white">
-      <div className="absolute right-1 bottom-2 flex gap-5">
+      <div className="absolute right-1 bottom-2 flex gap-5 sm:gap-5 md:gap-5 lg:gap-5 xl:gap-5">
         <button onClick={handleLikeClick}>
           <Image
             src={loveState ? Lovefilled : Love}
