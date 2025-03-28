@@ -23,14 +23,14 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images, withIconsAndButtons = tru
       {columnImages.map((col, colIndex) => (
         <div key={colIndex} className="flex flex-col gap-5 items-center">
           {col.map((image) => (
-            <div key={image.id} className="relative w-[450px]">
+            <div key={image.id} className="relative w-full max-w-[450px]">
               <Link href={`/photo?selected=true`} passHref onClick={() => setSelectedImage(image.src)}>
                 <Image
                   src={image.src}
                   alt="Photo"
                   width={500}
                   height={500}
-                  className="object-cover cursor-pointer"
+                  className="object-cover cursor-pointer w-full h-auto"
                   unoptimized
                 />
               </Link>
