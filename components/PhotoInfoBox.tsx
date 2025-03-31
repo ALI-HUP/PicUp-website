@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import WhiteFrame from "@/components/WhiteFrame";
+import Image from "next/image";
+import Deletepic from "@/public/svg/delete_2550254.png";
 
 interface PhotoInfoBoxProps {
   src: string;
@@ -23,7 +25,12 @@ const PhotoInfoBox: React.FC<PhotoInfoBoxProps> = ({ src }) => {
 
   return (
     <div className="w-[30%] bg-white p-5 text-black rounded-xl shadow-xl flex flex-col gap-10 justify-center">
-      <h2 className="text-2xl font-bold">{userName}</h2>
+      <div className="flex place-content-between">
+        <h2 className="text-2xl font-bold">{userName}</h2>
+        <button>
+          <Image alt="Delete pic" src={Deletepic} className="w-5"/> 
+        </button>
+      </div>
       <p className="text-lg break-words whitespace-normal">Description: {description} </p>
       
       <WhiteFrame imageSrc={src} />
