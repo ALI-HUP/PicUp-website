@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import Love from "@/public/svg/heart-svgrepo-com.png";

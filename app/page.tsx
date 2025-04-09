@@ -1,40 +1,17 @@
 "use client";
-
 import React from "react";
-import ImageGrid from "@/components/ImageGrid";
-import Image from "next/image";
-import profilePic from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQFQNHJlfQ2.jpg";
 
 const Home = () => {
   return (
-    <div className="mb-40">
-      <ImageGrid images={[]} />
-
-      <div className="flex justify-center items-center flex-col">
-        <div className="bg-slate-700 p-10 w-[50%] m-5 flex gap-20">
-          <div className="">
-            <p>;ogjbn;kjn</p>
-          </div>
-          <div>
-            <Image alt="profile pic" src={profilePic} className="w-40"/>
-          </div>
-          <div>
-            <Image alt="profile pic" src={profilePic} className="w-40"/>
-          </div>
-        </div>
-
-        <div className="bg-slate-700 p-10 w-[50%] m-5 flex gap-20">
-          <div className="">
-            <p>;ogjbn;kjn</p>
-          </div>
-          <div>
-            <Image alt="profile pic" src={profilePic} className="w-40"/>
-          </div>
-          <div>
-            <Image alt="profile pic" src={profilePic} className="w-40"/>
-          </div>
-        </div>
-      </div>
+    <div className="flex justify-center items-center h-screen flex-col">
+      <h1 className="text-3xl mb-5">Welcome to Our Photography Site</h1>
+      <p className="mb-10">This is the place where you can view amazing photos and galleries. Please log in to access more features.</p>
+      <a 
+        href="/login" 
+        className="bg-blue-500 text-white p-3 rounded-md"
+      >
+        Login
+      </a>
     </div>
   );
 };
