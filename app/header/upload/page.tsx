@@ -2,7 +2,6 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import Header from "@/components/Header";
 import Uploadpic from "@/public/svg/upload_7078851.png";
 import Button from "@/components/Button";
 import Deletepic from "@/public/svg/delete_2550254.png";
@@ -149,7 +148,6 @@ const Upload = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
 
       <div className="flex flex-grow justify-center items-center gap-14 py-10">
         <div className="bg-white w-full md:w-[50%] p-7 rounded-xl shadow-xl">
