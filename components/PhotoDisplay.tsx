@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Header from "@/components/Header";
 import Image from "next/image";
 import PhotoInfoBox from "@/components/PhotoInfoBox";
 
@@ -12,7 +11,6 @@ interface PhotoDisplayProps {
 const PhotoDisplay: React.FC<PhotoDisplayProps> = ({ src }) => {
   return (
     <div className="h-screen flex flex-col">
-      <Header />
 
       <div className="flex flex-grow items-center overflow-hidden">
         <div className="w-2/3 flex justify-center">

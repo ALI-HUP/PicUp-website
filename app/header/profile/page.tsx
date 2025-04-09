@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
-import Header from "@/components/Header";
 import ImageGrid from "@/components/ImageGrid";
 import Image from "next/image";
 import profile from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQFQNHJlfQ2.jpg";
@@ -77,7 +76,6 @@ const Profile = () => {
 
   return (
     <div className="mb-40">
-      <Header />
 
       <div className="m-auto bg-slate-900">
         <div className="flex justify-center items-center py-10 space-x-20">

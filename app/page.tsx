@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Header from "../components/Header";
 import ImageGrid from "@/components/ImageGrid";
 import Image from "next/image";
 import profilePic from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQFQNHJlfQ2.jpg";
@@ -9,7 +8,6 @@ import profilePic from "@/public/profile/360_F_819663119_che4sZSrmQv8uQJOzuN9TVQ
 const Home = () => {
   return (
     <div className="mb-40">
-      <Header />
       <ImageGrid images={[]} />
 
       <div className="flex justify-center items-center flex-col">
