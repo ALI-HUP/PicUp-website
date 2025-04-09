@@ -13,7 +13,7 @@ export const authOptions: AuthOptions = {
         const email = credentials?.email;
         const password = credentials?.password;
 
-        console.log("Login attempt", { email, password }); // Log login attempt
+        console.log("Login attempt", { email, password });
 
         if (!email || !password) {
           console.log("Missing email or password");
@@ -21,11 +21,11 @@ export const authOptions: AuthOptions = {
         }
 
         if (email === "test@example.com" && password === "123456") {
-          console.log("User authorized:", email); // Log successful login
+          console.log("User authorized:", email);
           return { id: "1", name: "Test User", email };
         }
 
-        console.log("Invalid credentials"); // Log invalid login
+        console.log("Invalid credentials");
         return null;
       },
     }),
@@ -34,9 +34,9 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/login",  // This is where users go to log in
+    signIn: "/login",
   },
-  secret: process.env.NEXTAUTH_SECRET,  // Ensure you have this secret in .env.local
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
