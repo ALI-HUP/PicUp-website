@@ -10,7 +10,6 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Attempt to sign in using credentials
     const res = await signIn("credentials", {
       redirect: false,
       email,
@@ -18,11 +17,9 @@ export default function LoginPage() {
       callbackUrl: "/home",
     });
 
-    // If there's an error, set it
     if (res?.error) {
       setError("Invalid credentials. Please try again.");
     } else {
-      // Redirect to the home page if successful
       window.location.href = res?.url || "/home";
     }
   };
