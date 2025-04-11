@@ -15,7 +15,7 @@ const Saved = () => {
       {savedImages.length > 0 ? (
         <ImageGrid images={savedImages.map((src: string) => ({ id: src, src }))} />
       ) : (
-        <p className="text-center text-black mt-10">No saved images yet...</p>
+        <p className="text-center mt-10">No saved images yet...</p>
       )}
     </div>
   );

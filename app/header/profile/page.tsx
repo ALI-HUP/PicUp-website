@@ -103,7 +103,7 @@ const Profile = () => {
             )}
           </div>
 
-          <div className="flex flex-col w-[550px]">
+          <div className="flex flex-col w-[550px] text-white">
             {isEditing ? (
               <>
                 <input

@@ -152,7 +152,7 @@ const Upload = () => {
       <div className="flex flex-grow justify-center items-center gap-14 py-10">
         <div className="bg-white w-full md:w-[50%] p-7 rounded-xl shadow-xl">
           <div className="flex flex-col justify-center items-center">
-            <h2 className="text-2xl text-black font-extrabold m-5">Upload Your Photos</h2>
+            <h2 className="text-2xl font-extrabold m-5">Upload Your Photos</h2>
             <Image src={Uploadpic} alt="Upload pic" className="mb-5 w-[50px]" />
           </div>
 
@@ -196,7 +196,7 @@ const Upload = () => {
                   />
 
                   <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="bg-slate-100 text-black text-xs px-4 py-1 rounded-full">Click</span>
+                    <span className="bg-slate-100 text-xs px-4 py-1 rounded-full">Click</span>
                   </div>
                 </div>
               ))}
@@ -217,7 +217,7 @@ const Upload = () => {
         </div>
 
         <div className="bg-white w-full md:w-[25%] p-5 rounded-xl shadow-xl">
-          <h3 className="text-2xl font-extrabold text-black mb-3">Upload Guidelines:</h3>
+          <h3 className="text-2xl font-extrabold mb-3">Upload Guidelines:</h3>
           <ul className="space-y-4 text-base text-gray-800">
             <li>• You can upload up to <strong className="text-lg">5</strong> images at a time!</li>
             <li>• Ensure that the images are of good quality (minimum resolution of 1080p recommended).</li>
@@ -240,7 +240,7 @@ const Upload = () => {
               />
             </div>
             <div className="flex flex-col justify-between items-center p-5 w-[300px]">
-              <div className="relative w-full h-44 text-black">
+              <div className="relative w-full h-44">
                 <textarea
                   value={descriptions[selectedImageIndex]}
                   onChange={(e) => handleDescriptionChange(selectedImageIndex, e.target.value.slice(0, 50))}

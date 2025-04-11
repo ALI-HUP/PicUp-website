@@ -24,7 +24,7 @@ const PhotoInfoBox: React.FC<PhotoInfoBoxProps> = ({ src }) => {
   }, [src]);
 
   return (
-    <div className="w-[30%] bg-white p-5 text-black rounded-xl shadow-xl flex flex-col gap-10 justify-center">
+    <div className="w-[30%] bg-white p-5 rounded-xl shadow-xl flex flex-col gap-10 justify-center">
       <div className="flex place-content-between">
         <h2 className="text-2xl font-bold">{userName}</h2>
         <button>
