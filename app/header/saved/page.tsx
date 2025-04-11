@@ -9,7 +9,7 @@ const Saved = () => {
   return (
     <div className="mb-40">
 
-      <div className="bg-slate-900 flex justify-center items-center text-2xl font-extrabold p-14">
+      <div className="bg-slate-900 flex justify-center items-center text-2xl font-extrabold p-14 text-white">
         <h1>Saved Photos: {savedImages.length}</h1>
       </div>
       {savedImages.length > 0 ? (
