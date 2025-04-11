@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import LogoutButton from "@/components/LogoutButton";
+import Button from "@/components/Button";
 
 
 export default async function HomePage() {
@@ -19,8 +19,7 @@ export default async function HomePage() {
     <div className="mb-40">
       <h1>Welcome to the Home Page!</h1>
       <p>Enjoy exploring amazing photos and galleries.</p>
-      <LogoutButton />
-
+      <Button label="Log Out" styleType="red" actionType="logout" />
     </div>
   );
 }
