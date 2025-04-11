@@ -3,10 +3,12 @@
 import { usePathname } from "next/navigation";
 import Header from "./Header";
 
-export default function HeaderWrapper() {
+const HeaderWrapper = () => {
   const pathname = usePathname();
 
-  if (pathname === "/") return null;
+  const hideHeader = pathname === "/" || pathname === "/login";
 
-  return <Header />;
-}
+  return hideHeader ? null : <Header />;
+};
+
+export default HeaderWrapper;
