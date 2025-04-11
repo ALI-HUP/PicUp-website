@@ -32,7 +32,7 @@ const NotificationSystem: React.FC<NotificationProps> = ({ message, type = "info
         </video>
       )}
 
-      <div className="p-5 rounded-lg shadow-lg bg-white text-black text-center relative z-10">
+      <div className="p-5 rounded-lg shadow-lg bg-white text-center relative z-10">
         <h2 className="text-xl font-bold p-2">{message}</h2>
         {onClose && (
           <Button

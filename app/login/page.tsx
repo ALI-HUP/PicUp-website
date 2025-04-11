@@ -25,7 +25,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen text-black">
+    <div className="flex justify-center items-center h-screen">
       <form onSubmit={handleLogin} className="space-y-4 bg-gray-100 p-6 rounded-md">
         <input
           type="email"
