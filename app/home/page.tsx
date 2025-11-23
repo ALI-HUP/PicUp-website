@@ -16,7 +16,7 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="mb-40">
+    <div className="flex flex-col items-center m-48 gap-3">
       <h1>Welcome to the Home Page!</h1>
       <p>Enjoy exploring amazing photos and galleries.</p>
       <Button label="Log Out" styleType="red" actionType="logout" />
