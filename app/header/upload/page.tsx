@@ -147,7 +147,7 @@ const Upload = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
 
       <div className="flex flex-grow justify-center items-center gap-14 py-10">
         <div className="bg-white w-full md:w-[50%] p-7 rounded-xl shadow-xl">
