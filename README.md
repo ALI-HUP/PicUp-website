@@ -12,5 +12,5 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 *****
 
-
-In chat-GPT you can get help from this chat: https://chatgpt.com/c/67b7726b-5e70-800b-92d3-45d4bdc88ebd
+## Vercel Link:
+- [See the PicUp URL](https://pic-up-website.vercel.app/)
